@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/img_0.png">
+<title>Demostración | Lofti</title>
+<meta name="description" content="Recorrido de demostración del proceso de arriendo en Lofti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"></noscript>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Ir al contenido</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-ok" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+  </defs>
+</svg>
+
+<div id="site-header"></div>
+<script src="js/site-nav.js?v=13" defer></script>
+
+<main id="main">
+
+  <section class="demo-banner" role="note" aria-label="Modo demostración">
+    <strong>DEMO</strong>
+    <span>Recorrido ilustrativo. No se firma ningún contrato ni se realizan pagos reales.</span>
+    <button type="button" class="btn btn-ghost btn-sm" id="reset-demo">Reiniciar demostración</button>
+  </section>
+
+  <section class="band" aria-labelledby="demo-title">
+    <div class="shell">
+      <div class="sec-head">
+        <span class="label">MODO DEMOSTRACIÓN</span>
+        <h1 class="h1" id="demo-title">Prueba cómo funciona Lofti.</h1>
+        <p class="lead">Un ejemplo guiado, sin efectos legales ni transacciones reales.</p>
+      </div>
+
+      <div class="demo-role-pick" id="role-pick">
+        <p style="font:500 1rem/1.4 var(--sans);margin:0 0 12px">¿Desde qué perspectiva quieres empezar?</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button type="button" class="btn btn-brand btn-lg" data-role="arrendatario" id="pick-arr">Soy arrendatario</button>
+          <button type="button" class="btn btn-ghost btn-lg" data-role="propietario" id="pick-own">Soy propietario</button>
+        </div>
+      </div>
+
+      <div id="demo-body" style="display:none">
+        <div class="v9-stepper" id="demo-stepper"></div>
+        <div class="v9-card" id="demo-panel"></div>
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap" id="demo-actions"></div>
+        <p class="demo-switch-role" id="switch-role" style="margin-top:24px"></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Lofti, volver arriba"><img class="logo" src="img/principal.png" alt="Lofti" width="74" height="30"></a>
+        <p class="mission">Encontrar hogar debería ser más fácil. Vivir juntos también.</p>
+      </div>
+      <div><h3 class="label">Navegación</h3><ul><li><a href="como-funciona.html">Qué es Lofti</a></li><li><a href="como-funciona.html#como-funciona">Cómo funciona</a></li><li><a href="vivienda.html">Ver propiedades</a></li><li><a href="precios.html">Precios</a></li><li><a href="preguntas.html">Preguntas</a></li></ul></div>
+      <div><h3 class="label">Legal</h3><ul><li>Términos y condiciones <span class="soon">Próximamente</span></li><li>Política de privacidad <span class="soon">Próximamente</span></li></ul></div>
+      <div><h3 class="label">Contacto</h3><ul><li>soporte@lofti.cl</li><li>WhatsApp +56 9 XXXX XXXX</li><li><a href="https://instagram.com/lofti.cl">Instagram @lofti.cl</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Lofti</span><span>Santiago de Chile</span></div>
+  </div>
+</footer>
+
+<script src="js/demo-state.js"></script>
+<script>
+(function() {
+  var esc = window._esc || function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+  var fmt = function(n) { return '$' + Math.round(n).toLocaleString('es-CL'); };
+  var state = LOFTI_DEMO.load();
+
+  var STEPS_ARR = [
+    { key: 'buscar', label: '1. Buscar' },
+    { key: 'postular', label: '2. Postular' },
+    { key: 'acuerdo', label: '3. Acuerdo' },
+    { key: 'contrato', label: '4. Contrato' },
+    { key: 'pago', label: '5. Pago' }
+  ];
+  var STEPS_OWN = [
+    { key: 'publicar', label: '1. Publicar' },
+    { key: 'postulantes', label: '2. Postulantes' },
+    { key: 'acuerdo', label: '3. Acuerdo' },
+    { key: 'contrato', label: '4. Contrato' },
+    { key: 'cobro', label: '5. Cobro' }
+  ];
+
+  var currentStep = 0;
+  var body = document.getElementById('demo-body');
+  var stepper = document.getElementById('demo-stepper');
+  var panel = document.getElementById('demo-panel');
+  var actions = document.getElementById('demo-actions');
+  var switchRole = document.getElementById('switch-role');
+
+  function steps() { return state.role === 'arrendatario' ? STEPS_ARR : STEPS_OWN; }
+
+  function renderStepper() {
+    var s = steps();
+    stepper.innerHTML = s.map(function(st, i) {
+      var cls = i === currentStep ? 'v9-stepper-step active' : (i < currentStep ? 'v9-stepper-step done' : 'v9-stepper-step');
+      return '<span class="' + cls + '">' + esc(st.label) + '</span>';
+    }).join('');
+  }
+
+  function renderSwitch() {
+    var other = state.role === 'arrendatario' ? 'propietario' : 'arrendatario';
+    switchRole.innerHTML = '<button type="button" class="btn btn-ghost btn-sm" id="btn-switch">Cambiar a vista ' + esc(other) + '</button>';
+    document.getElementById('btn-switch').onclick = function() {
+      state.role = other;
+      LOFTI_DEMO.save(state);
+      currentStep = 0;
+      render();
+    };
+  }
+
+  function render() {
+    renderStepper();
+    renderSwitch();
+    var s = steps();
+    var key = s[currentStep].key;
+    if (key === 'buscar') renderBuscar();
+    else if (key === 'postular') renderPostular();
+    else if (key === 'publicar') renderPublicar();
+    else if (key === 'postulantes') renderPostulantes();
+    else if (key === 'acuerdo') renderAcuerdo();
+    else if (key === 'contrato') renderContrato();
+    else if (key === 'pago' || key === 'cobro') renderPago();
+  }
+
+  function nav(label, onclick) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-brand btn-lg';
+    btn.textContent = label;
+    btn.onclick = onclick;
+    return btn;
+  }
+
+  function navGhost(label, onclick) {
+    var btn = nav(label, onclick);
+    btn.className = 'btn btn-ghost btn-lg';
+    return btn;
+  }
+
+  function renderBuscar() {
+    var p = state.property;
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.25rem/1.3 var(--display);margin:0">' + esc(p.title) + '</h3>'
+      + '<p style="font:400 .875rem/1.4 var(--sans);color:var(--muted);margin:4px 0 0">' + esc(p.commune) + ' · ' + p.area + ' m² · ' + esc(p.description) + '</p>'
+      + '<p style="font:600 1.125rem/1.3 var(--sans);margin:12px 0 0">' + fmt(p.rent) + '<small style="font-weight:400;color:var(--muted)"> /mes</small></p>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--muted);margin:8px 0 0">+ ' + fmt(10000) + ' cargo Lofti arrendatario = <b>' + fmt(p.rent + 10000) + '</b> total mensual</p>'
+      + '</div>';
+    actions.innerHTML = '';
+    actions.appendChild(nav('Postular a esta vivienda', function() { currentStep = 1; render(); }));
+  }
+
+  function renderPostular() {
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Datos para tu postulación</h3>'
+      + '<div style="margin:12px 0">'
+      + '<label class="demo-label">Nombre (demo)</label>'
+      + '<input class="demo-input" value="Persona Demo A" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Fecha de entrada deseada</label>'
+      + '<input class="demo-input" value="' + esc(state.property.available) + '" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Mensaje al propietario</label>'
+      + '<textarea class="demo-input" rows="2" readonly>Hola, me interesa la pieza. Tengo referencias disponibles.</textarea>'
+      + '</div>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--muted)">En un arriendo real, aquí se adjuntarían documentos. Esta es una demostración.</p>'
+      + '</div>';
+    actions.innerHTML = '';
+    actions.appendChild(nav('Enviar postulación de ejemplo', function() {
+      state.application.status = 'app_sent';
+      LOFTI_DEMO.save(state);
+      panel.innerHTML = '<div class="v9-card">'
+        + '<span class="demo-badge">DEMO</span>'
+        + '<div style="text-align:center;padding:24px 0">'
+        + '<div style="font-size:2rem;margin-bottom:8px">✓</div>'
+        + '<b style="font:600 1rem/1.3 var(--sans)">Tu postulación de demostración fue enviada</b>'
+        + '<p style="font:400 .875rem/1.4 var(--sans);color:var(--muted);margin:8px 0 0">Estado: En revisión</p>'
+        + '</div></div>';
+      actions.innerHTML = '';
+      actions.appendChild(nav('Continuar al acuerdo', function() { currentStep = 2; render(); }));
+    }));
+    actions.appendChild(navGhost('Volver', function() { currentStep = 0; render(); }));
+  }
+
+  function renderPublicar() {
+    var p = state.property;
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Tu publicación de ejemplo</h3>'
+      + '<div style="margin:12px 0">'
+      + '<label class="demo-label">Tipo</label>'
+      + '<input class="demo-input" value="Pieza en vivienda compartida" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Título</label>'
+      + '<input class="demo-input" value="' + esc(p.title) + '" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Comuna</label>'
+      + '<input class="demo-input" value="' + esc(p.commune) + '" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Renta mensual</label>'
+      + '<input class="demo-input" value="' + fmt(p.rent) + '" readonly>'
+      + '<label class="demo-label" style="margin-top:8px">Descripción</label>'
+      + '<textarea class="demo-input" rows="2" readonly>' + esc(p.description) + '</textarea>'
+      + '</div>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--muted)">En un arriendo real, aquí se subirían fotos y detalles adicionales.</p>'
+      + '</div>';
+    actions.innerHTML = '';
+    actions.appendChild(nav('Publicar ejemplo (demo)', function() {
+      state.property.status = 'published';
+      LOFTI_DEMO.save(state);
+      currentStep = 1;
+      render();
+    }));
+  }
+
+  function renderPostulantes() {
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Postulaciones recibidas</h3>'
+      + '<div style="margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:8px">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center">'
+      + '<div><b style="font:500 .9375rem/1.3 var(--sans)">Persona Demo A</b>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--muted);margin:2px 0 0">Entrada: ' + esc(state.property.available) + '</p></div>'
+      + '<span style="font:500 .75rem/1 var(--mono);padding:4px 8px;background:var(--home);border-radius:4px">En revisión</span>'
+      + '</div>'
+      + '</div>'
+      + '</div>';
+    actions.innerHTML = '';
+    actions.appendChild(nav('Aceptar postulación (demo)', function() {
+      state.application.status = 'app_accepted';
+      LOFTI_DEMO.save(state);
+      currentStep = 2;
+      render();
+    }));
+    actions.appendChild(navGhost('Rechazar (demo)', function() {
+      state.application.status = 'app_rejected';
+      LOFTI_DEMO.save(state);
+      panel.innerHTML = '<div class="v9-card"><span class="demo-badge">DEMO</span><p style="font:400 .875rem/1.4 var(--sans);margin:0">Postulación rechazada. En un arriendo real, el postulante recibiría una notificación.</p></div>';
+      actions.innerHTML = '';
+      actions.appendChild(navGhost('Reiniciar demo', function() { resetDemo(); }));
+    }));
+  }
+
+  function renderAcuerdo() {
+    var a = state.agreement;
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Condiciones del arriendo</h3>'
+      + '<div style="margin:12px 0">'
+      + '<div class="demo-row"><span>Renta mensual</span><b>' + fmt(a.rent) + '</b></div>'
+      + '<div class="demo-row"><span>Garantía (entre partes)</span><b>' + fmt(a.deposit) + '</b></div>'
+      + '<div class="demo-row"><span>Inicio</span><b>' + esc(a.startDate) + '</b></div>'
+      + '<div class="demo-row"><span>Duración</span><b>' + a.duration + ' meses</b></div>'
+      + '</div>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--muted)">La garantía se acuerda y paga directamente entre las partes. Lofti no la cobra ni retiene.</p>'
+      + '</div>';
+    actions.innerHTML = '';
+    actions.appendChild(nav('Confirmar condiciones (demo)', function() {
+      state.agreement.status = 'agreement_confirmed';
+      LOFTI_DEMO.save(state);
+      currentStep = 3;
+      render();
+    }));
+    actions.appendChild(navGhost('Volver', function() { currentStep = Math.max(0, currentStep - 1); render(); }));
+  }
+
+  function renderContrato() {
+    var c = state.contract;
+    var a = state.agreement;
+    var tenantDone = !!c.tenantAcceptedAt;
+    var landlordDone = !!c.landlordAcceptedAt;
+    var bothDone = tenantDone && landlordDone;
+
+    panel.innerHTML = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Borrador del contrato</h3>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--warning);margin:8px 0">Documento ilustrativo; requiere revisión legal antes de utilizarse en un arriendo real.</p>'
+      + '<div style="margin:12px 0;padding:12px;background:var(--surface);border-radius:8px;font:400 .875rem/1.5 var(--sans)">'
+      + '<p><b>CONTRATO DE ARRIENDO DE EJEMPLO</b> (Revisión ' + a.revision + ')</p>'
+      + '<p>Propiedad: ' + esc(state.property.title) + '</p>'
+      + '<p>Renta: ' + fmt(a.rent) + '/mes · Inicio: ' + esc(a.startDate) + ' · Duración: ' + a.duration + ' meses</p>'
+      + '<p>Garantía: ' + fmt(a.deposit) + ' (se acuerda y paga entre las partes)</p>'
+      + '<p>Cargo Lofti: $10.000/mes arrendatario + $10.000/mes arrendador</p>'
+      + '</div>'
+      + '<div style="display:flex;gap:12px;margin:12px 0">'
+      + '<div class="demo-sign-card"><b>Arrendatario</b><span class="demo-sign-status ' + (tenantDone ? 'ok' : '') + '">' + (tenantDone ? '✓ Aceptado' : 'Pendiente') + '</span></div>'
+      + '<div class="demo-sign-card"><b>Propietario</b><span class="demo-sign-status ' + (landlordDone ? 'ok' : '') + '">' + (landlordDone ? '✓ Aceptado' : 'Pendiente') + '</span></div>'
+      + '</div>'
+      + (bothDone ? '<p style="font:500 .875rem/1.3 var(--sans);color:var(--success)">Ambas partes confirmaron el borrador (demostración). <b>SIN VALIDEZ DE FIRMA.</b></p>' : '')
+      + '</div>';
+
+    actions.innerHTML = '';
+    if (!bothDone) {
+      var myRole = state.role;
+      var myDone = myRole === 'arrendatario' ? tenantDone : landlordDone;
+      if (!myDone) {
+        actions.appendChild(nav('Aceptar borrador como ' + (myRole === 'arrendatario' ? 'arrendatario' : 'propietario') + ' (demo)', function() {
+          if (myRole === 'arrendatario') c.tenantAcceptedAt = new Date().toISOString();
+          else c.landlordAcceptedAt = new Date().toISOString();
+          LOFTI_DEMO.save(state);
+          render();
+        }));
+      }
+      var otherDone = myRole === 'arrendatario' ? landlordDone : tenantDone;
+      if (!otherDone && myDone) {
+        var otherRole = myRole === 'arrendatario' ? 'propietario' : 'arrendatario';
+        actions.appendChild(nav('Simular aceptación del ' + otherRole + ' (demo)', function() {
+          if (otherRole === 'arrendatario') c.tenantAcceptedAt = new Date().toISOString();
+          else c.landlordAcceptedAt = new Date().toISOString();
+          LOFTI_DEMO.save(state);
+          render();
+        }));
+      }
+    } else {
+      actions.appendChild(nav('Ir al pago demo', function() { currentStep = 4; render(); }));
+    }
+    actions.appendChild(navGhost('Volver', function() { currentStep = 2; render(); }));
+  }
+
+  function renderPago() {
+    var rent = state.agreement.rent;
+    var method = state.payment.method || 'debit';
+    var rates = { debit: 0.013, credit: 0.016 };
+    var venti = Math.round(rent * rates[method] * 1.19);
+    var isArr = state.role === 'arrendatario';
+
+    var desglose = '<div class="v9-card">'
+      + '<span class="demo-badge">DEMO</span>'
+      + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Revisa el detalle antes de pagar</h3>'
+      + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--warning);margin:8px 0">Simulación: no se solicitarán datos de tarjeta ni se realizará un cobro.</p>';
+
+    if (isArr) {
+      desglose += '<div style="margin:12px 0">'
+        + '<div class="demo-row"><span>Renta (primer mes)</span><b>' + fmt(rent) + '</b></div>'
+        + '<div class="demo-row sub"><span>Cargo Lofti arrendatario</span><span>' + fmt(10000) + '</span></div>'
+        + '<div class="demo-row total"><span>Total a pagar</span><b>' + fmt(rent + 10000) + '</b></div>'
+        + '<div class="demo-row sub"><span>Garantía (entre partes, fuera de Lofti)</span><span>' + fmt(state.agreement.deposit) + '</span></div>'
+        + '</div>';
+    } else {
+      desglose += '<div style="margin:12px 0">'
+        + '<div class="demo-row"><span>Renta</span><b>' + fmt(rent) + '</b></div>'
+        + '<div class="demo-row sub"><span>Descuento Lofti propietario</span><span>-' + fmt(10000) + '</span></div>'
+        + '<div class="demo-row sub"><span>Comisión Venti estimada (' + (method === 'debit' ? 'débito' : 'crédito') + ')</span><span>-' + fmt(venti) + '</span></div>'
+        + '<div class="demo-row total"><span>Neto estimado al propietario</span><b>' + fmt(rent - 10000 - venti) + '</b></div>'
+        + '</div>'
+        + '<p style="font:400 .75rem/1.3 var(--sans);color:var(--muted)">Estimación sujeta a contrato y base de cálculo confirmada con Venti.</p>';
+    }
+    desglose += '</div>';
+
+    if (state.payment.simulatedReceiptId) {
+      panel.innerHTML = '<div class="v9-card">'
+        + '<span class="demo-badge">DEMO</span>'
+        + '<div style="text-align:center;padding:24px 0">'
+        + '<div style="font-size:2rem;margin-bottom:8px">✓</div>'
+        + '<b style="font:600 1rem/1.3 var(--sans)">Pago simulado aprobado</b>'
+        + '<p style="font:400 .875rem/1.4 var(--sans);color:var(--muted);margin:8px 0 0">ID: ' + esc(state.payment.simulatedReceiptId) + '</p>'
+        + '<p style="font:400 .8125rem/1.4 var(--sans);color:var(--warning);margin:8px 0 0">No acredita transferencia ni pago real.</p>'
+        + '</div></div>';
+      actions.innerHTML = '';
+      actions.appendChild(navGhost('Reiniciar demostración', function() { resetDemo(); }));
+      return;
+    }
+
+    panel.innerHTML = desglose;
+    actions.innerHTML = '';
+
+    var simBtn = nav('Simular pago (demo)', function() {
+      panel.innerHTML = '<div class="v9-card">'
+        + '<span class="demo-badge">DEMO</span>'
+        + '<h3 style="font:500 1.125rem/1.3 var(--display);margin:0">Simulador de pago — no es Venti</h3>'
+        + '<p style="font:400 .875rem/1.4 var(--sans);color:var(--muted);margin:8px 0">Selecciona el resultado de la simulación:</p>'
+        + '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0" id="sim-opts"></div>'
+        + '</div>';
+      var opts = document.getElementById('sim-opts');
+
+      var approved = nav('Simular pago aprobado', function() {
+        state.payment.status = 'payment_approved';
+        state.payment.simulatedReceiptId = state.id + '-R1';
+        state.payment.paidAt = new Date().toISOString();
+        LOFTI_DEMO.save(state);
+        render();
+      });
+      approved.className = 'btn btn-brand btn-lg';
+
+      var rejected = navGhost('Simular pago rechazado', function() {
+        state.payment.status = 'payment_rejected';
+        LOFTI_DEMO.save(state);
+        panel.innerHTML = '<div class="v9-card"><span class="demo-badge">DEMO</span>'
+          + '<p style="font:400 .875rem/1.4 var(--sans);margin:0">No se completó el pago de demostración. Puedes reintentar.</p></div>';
+        actions.innerHTML = '';
+        actions.appendChild(nav('Reintentar', function() { state.payment.status = 'payment_pending'; LOFTI_DEMO.save(state); render(); }));
+      });
+
+      var cancel = navGhost('Cancelar', function() { render(); });
+
+      opts.appendChild(approved);
+      opts.appendChild(rejected);
+      opts.appendChild(cancel);
+      actions.innerHTML = '';
+    });
+    actions.appendChild(simBtn);
+    actions.appendChild(navGhost('Volver', function() { currentStep = 3; render(); }));
+  }
+
+  function resetDemo() {
+    state = LOFTI_DEMO.reset();
+    currentStep = 0;
+    body.style.display = 'none';
+    document.getElementById('role-pick').style.display = '';
+  }
+
+  function startDemo(role) {
+    state.role = role;
+    LOFTI_DEMO.save(state);
+    document.getElementById('role-pick').style.display = 'none';
+    body.style.display = '';
+    currentStep = 0;
+    render();
+  }
+
+  document.getElementById('pick-arr').onclick = function() { startDemo('arrendatario'); };
+  document.getElementById('pick-own').onclick = function() { startDemo('propietario'); };
+  document.getElementById('reset-demo').onclick = resetDemo;
+
+  if (state && state.role && (state.application.status !== 'app_draft' || state.property.status !== 'draft')) {
+    startDemo(state.role);
+  }
+})();
+</script>
+</body>
+</html>

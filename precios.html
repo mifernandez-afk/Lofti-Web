@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/img_0.png">
+<title>Precios | Lofti</title>
+<meta name="description" content="Precios transparentes: cuánto cuesta Lofti para arrendatarios y dueños.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"></noscript>
+<link rel="stylesheet" href="styles.css">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com/leaflet@1.9.4/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://tile.openstreetmap.de; connect-src 'self' http://localhost:3000; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'">
+</head>
+<body>
+<a href="#main" class="skip-link">Ir al contenido</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-key" viewBox="0 0 256 256"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></symbol>
+    <symbol id="i-house" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol>
+    <symbol id="i-window" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM80,84A12,12,0,1,1,68,72,12,12,0,0,1,80,84Zm40,0a12,12,0,1,1-12-12A12,12,0,0,1,120,84Z"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 256 256"><path d="M216,72H32V48a8,8,0,0,0-16,0V208a8,8,0,0,0,16,0V176H240v32a8,8,0,0,0,16,0V112A40,40,0,0,0,216,72ZM32,88h72v72H32Zm88,72V88h96a24,24,0,0,1,24,24v48Z"/></symbol>
+    <symbol id="i-sofa" viewBox="0 0 256 256"><path d="M240,106.17V72a16,16,0,0,0-16-16H32A16,16,0,0,0,16,72v34.17A16,16,0,0,0,8,120v48a16,16,0,0,0,16,16h8v16a8,8,0,0,0,16,0V184H208v16a8,8,0,0,0,16,0V184h8a16,16,0,0,0,16-16V120A16,16,0,0,0,240,106.17ZM224,104h-8a16,16,0,0,0-16,16v16H136V72h88ZM120,72v64H56V120a16,16,0,0,0-16-16H32V72Zm112,96H24V120H40v24a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V120h16Z"/></symbol>
+    <symbol id="i-door" viewBox="0 0 256 256"><path d="M232,216H208V40a16,16,0,0,0-16-16H64A16,16,0,0,0,48,40V216H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16ZM64,40H192V216H64Zm104,92a12,12,0,1,1-12-12A12,12,0,0,1,168,132Z"/></symbol>
+    <symbol id="i-pet" viewBox="0 0 256 256"><path d="M212,80a28,28,0,1,0,28,28A28,28,0,0,0,212,80Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,212,120ZM72,108a28,28,0,1,0-28,28A28,28,0,0,0,72,108ZM44,120a12,12,0,1,1,12-12A12,12,0,0,1,44,120ZM92,88A28,28,0,1,0,64,60,28,28,0,0,0,92,88Zm0-40A12,12,0,1,1,80,60,12,12,0,0,1,92,48Zm72,40a28,28,0,1,0-28-28A28,28,0,0,0,164,88Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,48Zm23.12,100.86a35.3,35.3,0,0,1-16.87-21.14,44,44,0,0,0-84.5,0A35.25,35.25,0,0,1,69,148.82,40,40,0,0,0,88,224a39.48,39.48,0,0,0,15.52-3.13,64.09,64.09,0,0,1,48.87,0,40,40,0,0,0,34.73-72ZM168,208a24,24,0,0,1-9.45-1.93,80.14,80.14,0,0,0-61.19,0,24,24,0,0,1-20.71-43.26,51.22,51.22,0,0,0,24.46-30.67,28,28,0,0,1,53.78,0,51.27,51.27,0,0,0,24.53,30.71A24,24,0,0,1,168,208Z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 256 256"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"/></symbol>
+    <symbol id="i-pay" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
+    <symbol id="i-contract" viewBox="0 0 256 256"><path d="M232,168H63.86c2.66-5.24,5.33-10.63,8-16.11,15,1.65,32.58-8.78,52.66-31.14,5,13.46,14.45,30.93,30.58,31.25,9.06.18,18.11-5.2,27.42-16.37C189.31,143.75,203.3,152,232,152a8,8,0,0,0,0-16c-30.43,0-39.43-10.45-40-16.11a7.67,7.67,0,0,0-5.46-7.75,8.14,8.14,0,0,0-9.25,3.49c-12.07,18.54-19.38,20.43-21.92,20.37-8.26-.16-16.66-19.52-19.54-33.42a8,8,0,0,0-14.09-3.37C101.54,124.55,88,133.08,79.57,135.29,88.06,116.42,94.4,99.85,98.46,85.9c6.82-23.44,7.32-39.83,1.51-50.1-3-5.38-9.34-11.8-22.06-11.8C61.85,24,49.18,39.18,43.14,65.65c-3.59,15.71-4.18,33.21-1.62,48s7.87,25.55,15.59,31.94c-3.73,7.72-7.53,15.26-11.23,22.41H24a8,8,0,0,0,0,16H37.41c-11.32,21-20.12,35.64-20.26,35.88a8,8,0,1,0,13.71,8.24c.15-.26,11.27-18.79,24.7-44.12H232a8,8,0,0,0,0-16ZM58.74,69.21C62.72,51.74,70.43,40,77.91,40c5.33,0,7.1,1.86,8.13,3.67,3,5.33,6.52,24.19-21.66,86.39C56.12,118.78,53.31,93,58.74,69.21Z"/></symbol>
+    <symbol id="i-group" viewBox="0 0 256 256"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></symbol>
+    <symbol id="i-ok" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+    <symbol id="i-miss" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"/></symbol>
+    <symbol id="i-none" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+  </defs>
+</svg>
+
+
+<div id="site-header"></div>
+<script src="js/site-nav.js?v=13" defer></script>
+
+<main id="main">
+  <section class="v9-header shell">
+    <p class="label">Calculadora</p>
+    <h1 class="h1">Precios claros desde el comienzo.</h1>
+    <p class="lead">Consulta el cargo de Lofti y cómo se calcula el monto para cada parte. Cambia el valor del arriendo para ver el desglose.</p>
+  </section>
+
+  <section class="shell" style="padding-top:0">
+    <div class="v9-cards" style="margin-top:0">
+      <div class="v9-card">
+        <h3>Tarifa Lofti</h3>
+        <div style="display:grid;gap:12px;font-size:.9375rem;color:var(--muted)">
+          <p><strong style="color:var(--ink)">Para quien arrienda</strong><br>$10.000 CLP/mes, cobrado junto con la renta.</p>
+          <p><strong style="color:var(--ink)">Para quien publica</strong><br>$10.000 CLP/mes, descontado de la renta recibida.</p>
+          <p style="font-size:.875rem;border-top:1px dashed var(--line);padding-top:12px">Tarifa fija por contrato activo. No depende del monto de la renta.</p>
+        </div>
+      </div>
+      <div class="v9-card v9-card--active">
+        <h3>Calcula tu arriendo</h3>
+        <form onsubmit="return false" style="display:grid;gap:16px">
+          <div>
+            <label for="renta" style="display:block;font:500 .875rem/1.3 var(--sans);margin-bottom:6px">Renta mensual (CLP)</label>
+            <input type="text" id="renta" inputmode="numeric" value="600.000" autocomplete="off" style="width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:8px;font:400 1.125rem/1.3 var(--mono);background:var(--surface)">
+            <p id="renta-err" role="alert" style="color:var(--danger);font-size:.8125rem;min-height:1.2em;margin-top:4px"></p>
+          </div>
+          <fieldset style="border:none;padding:0;margin:0;display:flex;gap:16px">
+            <legend class="sr-only">Medio de pago</legend>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.9375rem;cursor:pointer"><input type="radio" name="method" value="debit" checked> Débito (1,30%+IVA)</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.9375rem;cursor:pointer"><input type="radio" name="method" value="credit"> Crédito (1,60%+IVA)</label>
+          </fieldset>
+        </form>
+        <div aria-live="polite" style="display:grid;gap:8px;padding-top:16px;border-top:1px solid var(--line)">
+          <div style="display:flex;justify-content:space-between;font-size:.9375rem"><span>Pago mensual del arrendatario</span><strong id="o1" class="mono">$610.000</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:.9375rem;color:var(--muted)"><span>Cargo Lofti arrendatario</span><span class="mono">$10.000</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.9375rem;color:var(--muted)"><span>Cargo Lofti propietario</span><span class="mono">$10.000</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.9375rem;color:var(--muted)"><span>Costo pasarela Venti (referencial)</span><strong id="o-venti" class="mono">$9.282</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:1.0625rem;padding-top:8px;border-top:1px dashed var(--line)"><span><strong>Neto estimado al propietario</strong></span><strong id="o2" class="mono" style="color:var(--brand)">$580.718</strong></div>
+          <p style="font-size:.8125rem;color:var(--muted);margin-top:8px">Comisión Venti es referencial (sobre renta, confirmar base y condiciones reales). Lofti no cobra ni retiene comisión Venti. Los gastos comunes y servicios básicos se pagan aparte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Lofti, volver arriba"><img class="logo" src="img/principal.png" alt="Lofti" width="74" height="30"></a>
+        <p class="mission">Encontrar hogar debería ser más fácil. Vivir juntos también.</p>
+      </div>
+      <div><h3 class="label">Navegación</h3><ul><li><a href="como-funciona.html">Qué es Lofti</a></li><li><a href="como-funciona.html#como-funciona">Cómo funciona</a></li><li><a href="companeros.html">Compatibilidad</a></li><li><a href="companeros.html#amigos">Buscar con amigos</a></li><li><a href="como-funciona.html#dueños">Para dueños</a></li><li><a href="#precios">Precios</a></li><li><a href="preguntas.html">Preguntas</a></li></ul></div>
+      <div><h3 class="label">Legal</h3><ul><li>Términos y condiciones <span class="soon">Próximamente</span></li><li>Política de privacidad <span class="soon">Próximamente</span></li><li>Política de pagos y garantía <span class="soon">Próximamente</span></li></ul></div>
+      <div><h3 class="label">Contacto</h3><ul><li>soporte@lofti.cl</li><li>WhatsApp +56 9 XXXX XXXX</li><li><a href="https://instagram.com/lofti.cl">Instagram @lofti.cl</a></li></ul></div>
+    </div>
+    <img class="skyline" src="img/santiago-skyline.webp" alt="Silueta de Santiago con la cordillera de los Andes" loading="lazy" width="1200" height="300">
+    <div class="legal"><span>© 2026 Lofti</span><span>Santiago de Chile</span></div>
+  </div>
+</footer>
+
+
+<script>
+window._esc=function(s){if(typeof s!=='string')return s;return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');};
+(function () {
+  /* ---------- Analítica: clics con data-track, secciones vistas, salida ---------- */
+  window.dataLayer = window.dataLayer || [];
+  const track = (event, props) => window.dataLayer.push(Object.assign({ event }, props || {}));
+  document.addEventListener('click', (e) => { const el = e.target.closest('[data-track]'); if (el) track('cta_click', { id: el.dataset.track, role: el.dataset.role || null }); });
+  let last = 'top';
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting && en.target.id) { last = en.target.id; track('section_view', { id: en.target.id }); } }), { threshold: .35 });
+    document.querySelectorAll('main section[id]').forEach((s) => io.observe(s));
+  }
+  addEventListener('pagehide', () => track('page_exit', { last_section: last }));
+
+  /* ---------- Hero: degradado WebGL (#AEA432, #580300, #CEDAFF) ---------- */
+  (function heroGradient() {
+    const canvas = document.getElementById('hero-bg');
+    const gl = canvas && canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false });
+    if (!gl) return; // queda el degradado CSS de respaldo
+    const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    const fs = `precision highp float;
+uniform vec2 uRes;uniform float uTime;
+const vec3 C1=vec3(0.682,0.643,0.196);const vec3 C2=vec3(0.808,0.855,1.0);const vec3 C3=vec3(0.808,0.855,1.0);
+const float STRENGTH=1.7,DENSITY=1.1,FREQ=5.5,BRIGHT=1.3,REFL=0.1;
+vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
+vec4 perm(vec4 x){return mod289(((x*34.)+1.)*x);}vec4 tis(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);
+vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;
+vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;
+i=mod289(i);vec4 p=perm(perm(perm(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+float n_=.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);
+vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+vec4 nr=tis(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=nr.x;p1*=nr.y;p2*=nr.z;p3*=nr.w;
+vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;
+return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}
+float height(vec2 q,float t){
+  float n=snoise(vec3(q*DENSITY*0.38,t));
+  return n*STRENGTH*0.11+sin(q.x*FREQ*0.16+n*1.6+t*1.5)*0.06;} // type plane: ondulación suave
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;
+  float a=radians(50.);mat2 rz=mat2(cos(a),-sin(a),sin(a),cos(a));
+  vec2 q=rz*(uv*3.36)+vec2(1.4,0.)+vec2(0.,uv.x*0.17);
+  float t=uTime*0.6;
+  float h=height(q,t);
+  float e=0.02;vec3 nrm=normalize(vec3(-(height(q+vec2(e,0.),t)-h)/e,-(height(q+vec2(0.,e),t)-h)/e,2.2));
+  float g=q.y*0.34+h;
+  vec3 col=mix(C1,C2,smoothstep(-0.75,0.12,g));
+  col=mix(col,C3,smoothstep(0.18,0.95,g));
+  vec3 L=normalize(vec3(-0.4,0.6,0.8));
+  float diff=0.72+0.38*max(dot(nrm,L),0.);
+  float spec=pow(max(dot(reflect(-L,nrm),vec3(0.,0.,1.)),0.),24.)*REFL*3.;
+  col=col*diff*BRIGHT+spec;
+  gl_FragColor=vec4(clamp(col,0.,1.),1.);}`;
+    const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; };
+    const v = sh(gl.VERTEX_SHADER, vs), f = sh(gl.FRAGMENT_SHADER, fs);
+    if (!v || !f) return;
+    const prog = gl.createProgram(); gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const uRes = gl.getUniformLocation(prog, 'uRes'), uTime = gl.getUniformLocation(prog, 'uTime');
+    const PD = 0.8;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const resize = () => {
+      const w = Math.max(1, Math.round(canvas.clientWidth * PD)), h = Math.max(1, Math.round(canvas.clientHeight * PD));
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); }
+    };
+    let visible = true, lastFrame = 0, t0 = performance.now(), raf = 0;
+    const frame = (now) => {
+      raf = 0;
+      if (now - lastFrame >= 33) { // ~30 fps
+        lastFrame = now; resize();
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, reduce.matches ? 12.0 : (now - t0) / 1000);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      if (visible && !reduce.matches && !document.hidden) raf = requestAnimationFrame(frame);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) kick(); }).observe(canvas);
+    document.addEventListener('visibilitychange', kick);
+    if (reduce.addEventListener) reduce.addEventListener('change', kick);
+    addEventListener('resize', () => { lastFrame = 0; kick(); });
+    kick();
+  })();
+
+
+  /* ---------- Preguntas: la respuesta entra y sale por el mismo camino ----------
+     Abrir: el <details> se abre al instante y la respuesta aparece desde la pregunta.
+     Cerrar: primero se desvanece hacia arriba y luego se cierra el <details>.
+     Tocar de nuevo a mitad de camino invierte la transición desde donde va. */
+  const motionOK = matchMedia('(prefers-reduced-motion: no-preference)');
+  document.querySelectorAll('.faq details').forEach((d) => {
+    const sum = d.querySelector('summary'), ans = d.querySelector('.ans');
+    let timer = 0;
+    const finishClose = () => { clearTimeout(timer); if (d.dataset.state === 'closing') { d.removeAttribute('data-state'); d.open = false; } };
+    ans.addEventListener('transitionend', (e) => { if (e.target === ans && e.propertyName === 'opacity') finishClose(); });
+    sum.addEventListener('click', (e) => {
+      if (d.dataset.state === 'closing') { e.preventDefault(); clearTimeout(timer); d.removeAttribute('data-state'); return; } // reabrir
+      if (!d.open) { // abrir
+        d.dataset.state = 'opening';
+        requestAnimationFrame(() => { void ans.offsetWidth; d.removeAttribute('data-state'); });
+        return;
+      }
+      e.preventDefault(); // cerrar
+      d.dataset.state = 'closing';
+      timer = setTimeout(finishClose, motionOK.matches ? 320 : 240); // respaldo si no llega transitionend
+    });
+  });
+
+  /* ---------- Selector de rol (radiogroup con flechas) ---------- */
+  const roles = [...document.querySelectorAll('.role-select [role="radio"]')];
+  const setRole = (v) => roles.forEach((b) => { const on = b.dataset.value === v; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+  roles.forEach((b, i) => {
+    b.addEventListener('click', () => setRole(b.dataset.value));
+    b.addEventListener('keydown', (e) => {
+      if (!['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+      e.preventDefault();
+      const n = roles[(i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : roles.length - 1)) % roles.length];
+      setRole(n.dataset.value); n.focus();
+    });
+  });
+  document.querySelectorAll('a[data-role]').forEach((a) => a.addEventListener('click', () => setRole(a.dataset.role)));
+
+  /* Calculadora movida a js/pricing-ui.js (ES module, importa js/pricing.js como fuente unica) */
+
+  /* ---------- Registro: autenticación ---------- */
+  var API_AUTH = (window.location.port === '3000' ? '' : 'http://localhost:3000') + '/api/auth';
+  const authBox = document.getElementById('auth-buttons'), done = document.getElementById('done');
+  if (!authBox) return;
+  const roleLabel = { arrendatario: 'alguien que busca dónde vivir', dueño: 'alguien que quiere arrendar su propiedad' };
+  const providerLabel = { google: 'Google', apple: 'Apple', email: 'correo electrónico' };
+
+  var emailForm = document.createElement('div');
+  emailForm.className = 'auth-email-form';
+  emailForm.hidden = true;
+  emailForm.innerHTML = '<input type="text" id="auth-name" placeholder="Tu nombre" autocomplete="name">'
+    + '<input type="email" id="auth-email" placeholder="tu@correo.cl" autocomplete="email">'
+    + '<input type="password" id="auth-pass" placeholder="Contraseña (mín. 8 caracteres)" autocomplete="new-password" minlength="8">'
+    + '<button type="button" class="btn btn-brand" id="auth-submit">Crear cuenta</button>'
+    + '<button type="button" class="auth-toggle" id="auth-toggle">¿Ya tienes cuenta? Ingresar</button>'
+    + '<p class="auth-err" id="auth-err" hidden></p>';
+  authBox.parentNode.insertBefore(emailForm, done);
+
+  var isLogin = false;
+  var toggleBtn = emailForm.querySelector('#auth-toggle');
+  var submitBtn = emailForm.querySelector('#auth-submit');
+  var nameInput = emailForm.querySelector('#auth-name');
+
+  toggleBtn.addEventListener('click', function() {
+    isLogin = !isLogin;
+    submitBtn.textContent = isLogin ? 'Ingresar' : 'Crear cuenta';
+    toggleBtn.textContent = isLogin ? '¿No tienes cuenta? Crear una' : '¿Ya tienes cuenta? Ingresar';
+    nameInput.hidden = isLogin;
+    emailForm.querySelector('#auth-err').hidden = true;
+  });
+
+  submitBtn.addEventListener('click', async function() {
+    var email = emailForm.querySelector('#auth-email').value.trim();
+    var pass = emailForm.querySelector('#auth-pass').value;
+    var name = nameInput.value.trim();
+    var errEl = emailForm.querySelector('#auth-err');
+    var role = (roles.find(function(b) { return b.getAttribute('aria-checked') === 'true'; }) || roles[0]).dataset.value;
+
+    if (!email || !pass || (!isLogin && !name)) {
+      errEl.textContent = 'Completa todos los campos'; errEl.hidden = false; return;
+    }
+
+    submitBtn.disabled = true; submitBtn.textContent = isLogin ? 'Ingresando...' : 'Creando cuenta...';
+    try {
+      var endpoint = isLogin ? '/login' : '/register';
+      var body = isLogin ? { email: email, password: pass } : { email: email, password: pass, name: name, role: role };
+      var r = await fetch(API_AUTH + endpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(body)
+      });
+      var data = await r.json();
+      if (!r.ok) { errEl.textContent = data.error || 'Error'; errEl.hidden = false; return; }
+      track('signup', { role: data.role, provider: 'email' });
+      emailForm.hidden = true; authBox.hidden = true; done.hidden = false; done.setAttribute('tabindex', '-1');
+      done.textContent = '¡Bienvenido, ' + data.name + '! Cuenta creada como ' + (roleLabel[data.role] || data.role) + '.';
+      done.focus({ preventScroll: true });
+    } catch (e) {
+      errEl.textContent = 'No se pudo conectar al servidor. ¿Está corriendo en localhost:3000?'; errEl.hidden = false;
+    } finally {
+      submitBtn.disabled = false; submitBtn.textContent = isLogin ? 'Ingresar' : 'Crear cuenta';
+    }
+  });
+
+  authBox.addEventListener('click', (e) => {
+    const btn = e.target.closest('.auth-btn');
+    if (!btn) return;
+    const provider = btn.dataset.provider;
+    if (provider === 'email') {
+      authBox.hidden = true; emailForm.hidden = false;
+      emailForm.querySelector('#auth-email').focus();
+      return;
+    }
+    const role = (roles.find((b) => b.getAttribute('aria-checked') === 'true') || roles[0]).dataset.value;
+    track('signup', { role, provider });
+    authBox.hidden = true; done.hidden = false; done.setAttribute('tabindex', '-1');
+    done.textContent = `Listo — en la app real iniciarías sesión con ${providerLabel[provider] || provider} como ${roleLabel[role] || role}. Esta es una versión de prueba.`;
+    done.focus({ preventScroll: true });
+  });
+})();
+</script>
+<script>
+(function(){
+  var ZONES = {
+    'Las Condes':  {x:74,y:26}, 'Providencia':{x:54,y:42},
+    'Ñuñoa':{x:58,y:60}, 'Santiago':{x:36,y:54}, 'Macul':{x:62,y:76}
+  };
+  var TINT = {
+    'Las Condes':'var(--home)', 'Providencia':'var(--people-soft)',
+    'Ñuñoa':'var(--match-soft)', 'Santiago':'var(--brand-soft)', 'Macul':'var(--home-soft)'
+  };
+  var IMGS=['img/ejemplo__requisitos_de_una_pie.webp','img/card.webp','img/ejemplo_de_publicaci_n.webp','img/img_15.webp'];
+  var API_BASE = window.location.port === '3000' ? '' : 'http://localhost:3000';
+  var DATA = [];
+  function mapProp(p) {
+    return { id:p.id, titulo:p.title, comuna:p.comuna, tipo:p.type, precio:p.price, piezas:p.rooms, m2:p.area||0, bano:p.bathrooms===1?'1 baño':p.bathrooms+' baños', banos:p.bathrooms, lat:p.lat, lng:p.lng, desc:p.description, ownerName:p.owner?p.owner.name:'', ownerVerified:p.owner?p.owner.verified:false };
+  }
+  function loadProperties() {
+    fetch(API_BASE + '/api/properties').then(function(r){ return r.json(); }).then(function(d) {
+      DATA = d.items.map(mapProp);
+      render();
+    }).catch(function() {
+      DATA = [
+        {id:1,titulo:'Departamento luminoso en Providencia',comuna:'Providencia',tipo:'depto',precio:420000,piezas:2,m2:48,bano:'1 baño',banos:1,lat:-33.432,lng:-70.614},
+        {id:2,titulo:'Departamento en Ñuñoa, cerca del metro',comuna:'Ñuñoa',tipo:'depto',precio:380000,piezas:2,m2:52,bano:'1 baño',banos:1,lat:-33.456,lng:-70.598},
+        {id:3,titulo:'Casa familiar en Las Condes',comuna:'Las Condes',tipo:'casa',precio:590000,piezas:3,m2:74,bano:'2 baños',banos:2,lat:-33.414,lng:-70.575},
+        {id:4,titulo:'Studio en Santiago Centro',comuna:'Santiago',tipo:'depto',precio:270000,piezas:1,m2:34,bano:'1 baño',banos:1,lat:-33.446,lng:-70.656},
+        {id:5,titulo:'Casa con terraza en Macul',comuna:'Macul',tipo:'casa',precio:450000,piezas:3,m2:68,bano:'2 baños',banos:2,lat:-33.489,lng:-70.599},
+        {id:6,titulo:'Pieza luminosa en Providencia',comuna:'Providencia',tipo:'pieza',precio:330000,piezas:1,m2:16,bano:'baño compartido',banos:1,lat:-33.429,lng:-70.610},
+        {id:7,titulo:'Pieza amplia en Ñuñoa',comuna:'Ñuñoa',tipo:'pieza',precio:260000,piezas:1,m2:14,bano:'baño privado',banos:1,lat:-33.453,lng:-70.601},
+        {id:8,titulo:'Departamento en Santiago, buen metro',comuna:'Santiago',tipo:'depto',precio:340000,piezas:2,m2:50,bano:'1 baño',banos:1,lat:-33.449,lng:-70.651}
+      ];
+      render();
+    });
+  }
+  var TIPO_LABEL={depto:'Departamento',casa:'Casa',pieza:'Pieza'};
+  var COMUNAS = ['Providencia','Ñuñoa','Santiago','Las Condes','Macul'];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var fmt = function(n){ return '$' + Math.round(n).toLocaleString('es-CL'); };
+  var fmtK = function(n){ return '$' + Math.round(n/1000) + 'K'; };
+
+  var state = { comuna:null, maxPrice:0, rooms:0, tipo:'', banos:0, view:'list', active:null };
+  var leafletMap=null, markerLayer=null, markers={}, mapReady=false;
+  var leafletCenter=[-33.4489,-70.6293];
+  function geo(d){ return [Number(d.lat),Number(d.lng)]; }
+  var leafletLoading=false;
+  function loadLeaflet(callback){
+    if(window.L){callback();return;}
+    if(leafletLoading){var id=setInterval(function(){if(window.L){clearInterval(id);callback();}},50);return;}
+    leafletLoading=true;
+    var s=document.createElement('script');
+    s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    s.integrity='sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH';
+    s.crossOrigin='anonymous';
+    s.onload=callback;
+    s.onerror=function(){leafletLoading=false;$('exp-map').textContent='No se pudo cargar el mapa. Revisa tu conexión a Internet.';};
+    document.head.appendChild(s);
+  }
+  function initMap(){
+    if(mapReady)return;
+    leafletMap=L.map('exp-map',{scrollWheelZoom:false,zoomControl:true}).setView(leafletCenter,12);
+    var tl=L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',{
+      maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> '
+    }).addTo(leafletMap);
+    var note=document.createElement('div');note.className='map-fallback';note.hidden=true;
+    note.textContent='El mapa de calles se carga en el sitio web publicado. En esta vista previa se muestran solo las ubicaciones.';
+    document.getElementById('exp-map').appendChild(note);
+    tl.on('tileerror',function(){note.hidden=false;});
+    markerLayer=L.layerGroup().addTo(leafletMap);
+    mapReady=true;
+  }
+  function ensureMap(){
+    if(mapReady)return;
+    loadLeaflet(function(){initMap();syncMap(filtered());fitPoints();});
+  }
+  function fitPoints(){
+    if(!mapReady)return;
+    var list=filtered();
+    if(!list.length){leafletMap.setView(leafletCenter,12);return;}
+    leafletMap.fitBounds(L.latLngBounds(list.map(geo)).pad(.4),{maxZoom:13,animate:true});
+  }
+  function syncMap(list){
+    if(!mapReady){ensureMap();return;}
+    markerLayer.clearLayers();markers={};
+    list.forEach(function(d){
+      var sel=state.active===d.id;
+      var icon=L.divIcon({html:'<span>'+fmtK(d.precio)+'</span>',className:'map-price-pin'+(sel?' active':''),iconSize:[75,34],iconAnchor:[37,17]});
+      var mk=L.marker(geo(d),{icon:icon,title:d.titulo,keyboard:true,alt:d.titulo}).addTo(markerLayer);
+      mk.on('click',function(){state.active=d.id;render();leafletMap.panTo(geo(d),{animate:true});});
+      markers[d.id]=mk;
+    });
+    setTimeout(function(){leafletMap.invalidateSize();},0);
+  }
+
+  // comuna chips
+  var cc = $('exp-communes');
+  if(!cc) return;
+  COMUNAS.forEach(function(c){
+    var b = document.createElement('button');
+    b.type='button'; b.className='exp-chip'; b.textContent=c; b.setAttribute('aria-pressed','false');
+    b.addEventListener('click', function(){
+      state.comuna = (state.comuna===c)? null : c;
+      Array.prototype.forEach.call(cc.children,function(ch){ ch.setAttribute('aria-pressed', ch.textContent===state.comuna ? 'true':'false'); });
+      state.active=null; render();
+    });
+    cc.appendChild(b);
+  });
+
+  $('exp-price').addEventListener('change', function(e){ state.maxPrice=+e.target.value; state.active=null; render(); });
+  $('exp-rooms').addEventListener('change', function(e){ state.rooms=+e.target.value; state.active=null; render(); });
+  $('exp-tipo').addEventListener('change', function(e){ state.tipo=e.target.value; state.active=null; render(); });
+  $('exp-bano').addEventListener('change', function(e){ state.banos=+e.target.value; state.active=null; render(); });
+  $('exp-v-list').addEventListener('click', function(){ setView('list'); });
+  $('exp-v-map').addEventListener('click', function(){ setView('map'); });
+
+  function setView(v){
+    state.view=v;
+    $('exp-v-list').setAttribute('aria-pressed', v==='list'?'true':'false');
+    $('exp-v-map').setAttribute('aria-pressed', v==='map'?'true':'false');
+    $('exp-list').hidden = v!=='list';
+    $('exp-map-wrap').hidden = v!=='map';
+    $('map-toolbar').hidden = v!=='map';
+    render();
+    if(v==='map')setTimeout(function(){ensureMap();if(mapReady){leafletMap.invalidateSize();fitPoints();}},80);
+  }
+
+  function filtered(){
+    return DATA.filter(function(d){
+      if(state.comuna && d.comuna!==state.comuna) return false;
+      if(state.maxPrice && d.precio>state.maxPrice) return false;
+      if(state.tipo && d.tipo!==state.tipo) return false;
+      if(state.banos===1 && d.banos!==1) return false;
+      if(state.banos===2 && d.banos<2) return false;
+      if(state.rooms===3 && d.piezas<3) return false;
+      if(state.rooms && state.rooms<3 && d.piezas!==state.rooms) return false;
+      return true;
+    });
+  }
+
+  window.LOFTI_IMG=function(d){return IMGS[(d.id-1)%IMGS.length];};
+  var esc=window._esc;
+  function cardHTML(d){
+    return '<div class="exp-photo" style="background:'+TINT[d.comuna]+'">'
+      + '<img class="exp-img" src="'+IMGS[(d.id-1)%IMGS.length]+'" alt="" loading="lazy">'
+      + '<span class="exp-badge">Ejemplo</span>'
+      + '<span class="exp-tag">'+d.piezas+(d.piezas>1?' piezas':' pieza')+'</span>'
+      + '</div>'
+      + '<div class="exp-body"><h3>'+esc(d.titulo)+'</h3>'
+      + '<p class="exp-meta">'+esc(TIPO_LABEL[d.tipo]||'')+' · '+esc(d.comuna)+' · '+esc(d.m2)+' m² · '+esc(d.bano)+'</p>'
+      + '<div class="exp-price">'+fmt(d.precio)+' <span>/mes</span></div>'
+      + '<p class="exp-total">Total con Lofti: '+fmt(d.precio+10000)+'/mes</p></div>';
+  }
+
+  function render(){
+    var list = filtered();
+    $('exp-count').textContent = list.length + (list.length===1?' propiedad':' propiedades') + (state.comuna?(' en '+state.comuna):'');
+
+    // listado
+    var grid = $('exp-list'); grid.innerHTML='';
+    if(list.length===0){ grid.innerHTML='<p class="exp-empty">Sin resultados. Prueba con otra comuna, más piezas o un precio mayor.</p>'; }
+    list.forEach(function(d){
+      var el=document.createElement('button'); el.type='button'; el.className='exp-card'; el.innerHTML=cardHTML(d); el.__lofti=d;
+      el.addEventListener('click', function(){ if(window.openProp) window.openProp(this.__lofti); });
+      grid.appendChild(el);
+    });
+
+    // mapa interactivo (Leaflet), marcadores vinculados a los filtros
+    if(state.view==='map')syncMap(list);
+
+    // detalle mapa
+    var wrap=$('exp-map-wrap'), det=$('exp-detail');
+    var act=list.find(function(d){ return d.id===state.active; });
+    if(act){
+      wrap.classList.add('has-active');
+      var el=document.createElement('button'); el.type='button'; el.className='exp-detail-card'; el.innerHTML=cardHTML(act); el.__lofti=act;
+      el.addEventListener('click', function(){ if(window.openProp) window.openProp(this.__lofti); });
+      det.innerHTML=''; det.appendChild(el);
+    } else {
+      wrap.classList.remove('has-active'); det.innerHTML='';
+    }
+  }
+
+  var mf=$('map-fit'); if(mf)mf.addEventListener('click',fitPoints);
+  var mr=$('map-reset'); if(mr)mr.addEventListener('click',function(){if(mapReady)leafletMap.setView(leafletCenter,12,{animate:true});});
+  setView('list');
+  loadProperties();
+})();
+</script>
+<script>
+window._modalTrap=(function(){
+  var SEL='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  var stack=[];
+  function open(ov,focusEl){
+    var prev=document.activeElement;
+    stack.push({ov:ov,prev:prev});
+    document.querySelectorAll('body > :not([aria-hidden])').forEach(function(el){
+      if(el!==ov&&el.tagName!=='SCRIPT'&&el.tagName!=='LINK'&&el.tagName!=='STYLE'){el.setAttribute('data-inert','');el.setAttribute('aria-hidden','true');el.setAttribute('inert','');}
+    });
+    ov.hidden=false;
+    var target=focusEl||ov.querySelector(SEL);
+    if(target)target.focus();
+    ov._trapHandler=function(e){
+      if(e.key!=='Tab')return;
+      var nodes=Array.prototype.slice.call(ov.querySelectorAll(SEL)).filter(function(n){return n.offsetParent!==null;});
+      if(!nodes.length)return;
+      var first=nodes[0],last=nodes[nodes.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    };
+    document.addEventListener('keydown',ov._trapHandler);
+  }
+  function close(ov){
+    document.removeEventListener('keydown',ov._trapHandler);
+    ov.hidden=true;
+    document.querySelectorAll('[data-inert]').forEach(function(el){el.removeAttribute('data-inert');el.removeAttribute('aria-hidden');el.removeAttribute('inert');});
+    var entry=stack.pop();
+    if(entry&&entry.prev&&entry.prev.focus)entry.prev.focus();
+  }
+  return{open:open,close:close};
+})();
+</script>
+<div class="kyc-ov" id="kyc-ov" hidden role="dialog" aria-modal="true" aria-labelledby="kyc-h">
+  <div class="kyc-modal" style="position:relative">
+    <button type="button" class="kyc-x" id="kyc-x" aria-label="Cerrar">✕</button>
+    <div class="kyc-head">
+      <span class="label">Verificación de identidad</span>
+      <span class="kyc-demo">Demostración · no ingreses datos reales</span>
+      <h3 id="kyc-h">Verifícate para hablar con el dueño</h3>
+      <p id="kyc-sub">Antes de abrir el chat, Lofti verificará tu identidad. El dueño también pasará por verificación. Funcionalidad en desarrollo.</p>
+    </div>
+    <div class="kyc-body" id="kyc-body"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('kyc-ov'), body=document.getElementById('kyc-body'), sub=document.getElementById('kyc-sub');
+  var STEPS=[
+    {k:'id', t:'Identidad', d:'Validamos tu cédula y una selfie (o ClaveÚnica). Confirmamos que eres tú.'},
+    {k:'ant', t:'Antecedentes', d:'Revisión de DICOM, deudas y demandas. Solo el resultado se comparte, no tus documentos.'},
+    {k:'pre', t:'Precalificación', d:'Comparamos tu ingreso declarado con la renta para mostrarte si cumples el perfil.'}
+  ];
+  function close(){ window._modalTrap.close(ov); body.innerHTML=''; document.removeEventListener('keydown', onKey); }
+  function onKey(e){ if(e.key==='Escape') close(); }
+  document.getElementById('kyc-x').addEventListener('click', close);
+  ov.addEventListener('click', function(e){ if(e.target===ov) close(); });
+
+  window.openKYC=function(prop){
+    var i=0;
+    sub.textContent='Para hablar con el dueño de "'+(prop&&prop.titulo?prop.titulo:'esta propiedad')+'", Lofti verificará tu identidad. El dueño también pasará por verificación (funcionalidad en desarrollo).';
+    window._modalTrap.open(ov, document.getElementById('kyc-x')); document.addEventListener('keydown', onKey);
+    renderStep();
+
+    function renderStep(){
+      if(i>=STEPS.length){ renderDone(); return; }
+      var html='<ol class="kyc-steps">';
+      STEPS.forEach(function(st,idx){
+        var cls = idx<i?'ok':(idx===i?'active':'');
+        var mark = idx<i?'✓':(idx+1);
+        html+='<li class="kyc-step '+cls+'"><span class="kyc-dot">'+mark+'</span><div><b>'+st.t+'</b><small>'+st.d+'</small>'+(idx===i?'<div class="kyc-bar"><i id="kyc-fill"></i></div>':'')+'</div></li>';
+      });
+      html+='</ol>';
+      html+='<button type="button" class="btn btn-brand btn-lg" id="kyc-next" style="width:100%">Verificar '+STEPS[i].t.toLowerCase()+'</button>';
+      body.innerHTML=html;
+      document.getElementById('kyc-next').addEventListener('click', runStep);
+    }
+    function runStep(){
+      var btn=document.getElementById('kyc-next'); btn.disabled=true; btn.textContent='Verificando…';
+      var fill=document.getElementById('kyc-fill'); if(fill){ requestAnimationFrame(function(){ fill.style.width='100%'; }); }
+      setTimeout(function(){ i++; renderStep(); }, 900);
+    }
+    function renderDone(){
+      body.innerHTML='<div class="kyc-done"><div class="kyc-check">✓</div>'
+        +'<b style="font:600 17px var(--sans);color:var(--ink)">Verificado (demo)</b>'
+        +'<p style="font:400 14px/1.5 var(--sans);color:var(--muted);margin:8px 0 18px">Simulación de verificación de identidad. En producción, este paso requiere un proveedor KYC habilitado.</p></div>'
+        +'<button type="button" class="btn btn-brand btn-lg" id="kyc-to-proc" style="width:100%">Continuar: chatear y acordar</button>'
+        +'<button type="button" class="btn btn-ghost" id="kyc-close2" style="width:100%;margin-top:10px">Cerrar</button>';
+      document.getElementById('kyc-close2').addEventListener('click', close);
+      var toProc=document.getElementById('kyc-to-proc'); if(toProc)toProc.addEventListener('click', function(){ close(); if(window.openProceso) window.openProceso('inquilino'); });
+    }
+  };
+})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('pay-btn'); if(!btn) return;
+  var st=document.getElementById('pay-status'), rc=document.getElementById('pay-receipt');
+  var nodes=['pn-inq','pn-lofti','pn-arr'].map(function(id){return document.getElementById(id);});
+  btn.addEventListener('click', function(){
+    btn.disabled=true; rc.hidden=true;
+    nodes.forEach(function(n){ n.classList.remove('on','done'); });
+    st.dataset.state='proc'; st.textContent='Procesando pago…';
+    var seq=[0,1,2], k=0;
+    var t=setInterval(function(){
+      if(k>0) nodes[k-1].classList.add('done');
+      if(k<nodes.length){ nodes[k].classList.add('on'); k++; return; }
+      clearInterval(t);
+      nodes[2].classList.remove('on'); nodes[2].classList.add('done');
+      st.dataset.state='done'; st.textContent='✓ Pago simulado (demo)';
+      rc.hidden=false; btn.disabled=false; btn.textContent='Simular otro pago';
+    }, 700);
+  });
+})();
+</script>
+<div class="kyc-ov" id="prop-ov" hidden role="dialog" aria-modal="true" aria-labelledby="prop-h">
+  <div class="kyc-modal" style="position:relative;overflow:hidden">
+    <button type="button" class="kyc-x" id="prop-x" aria-label="Cerrar">✕</button>
+    <div id="prop-body"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('prop-ov'), body=document.getElementById('prop-body');
+  if(!ov) return;
+  var fmt=function(n){return '$'+Math.round(n).toLocaleString('es-CL');};
+  function close(){window._modalTrap.close(ov);body.innerHTML='';document.removeEventListener('keydown',onKey);}
+  function onKey(e){if(e.key==='Escape')close();}
+  document.getElementById('prop-x').addEventListener('click',close);
+  ov.addEventListener('click',function(e){if(e.target===ov)close();});
+  var esc=window._esc;
+  window.openProp=function(d){
+    var img=(window.LOFTI_IMG&&window.LOFTI_IMG(d))||'';
+    body.innerHTML=
+      '<div class="prop-photo">'+(img?('<img src="'+img+'" alt="">'):'')+'</div>'
+      +'<div class="prop-info">'
+      +'<span class="kyc-demo">Ejemplo</span>'
+      +'<h3 id="prop-h">'+esc(d.titulo)+'</h3>'
+      +'<p class="prop-meta">'+esc(d.comuna)+' · '+esc(d.m2)+' m² · '+esc(d.bano)+' · '+d.piezas+(d.piezas>1?' piezas':' pieza')+'</p>'
+      +'<div class="prop-price"><b>'+fmt(d.precio)+'</b> /mes<br><span>Total con Lofti: '+fmt(d.precio+10000)+'/mes</span></div>'
+      +'<p class="prop-note">Puedes mirar la propiedad sin registrarte. Para agendar una visita o hablar con el dueño, será necesario verificar tu identidad (en desarrollo).</p>'
+      +'<div class="prop-actions"><button type="button" class="btn btn-ghost-nav" id="prop-visit">Agendar visita</button><button type="button" class="btn btn-brand" id="prop-contact">Contactar al dueño</button></div>'
+      +'<p class="prop-visit-done" id="prop-visit-done" hidden>Listo (ejemplo): te contactaríamos para coordinar la visita.</p>'
+      +'</div>';
+    window._modalTrap.open(ov, document.getElementById('prop-x'));document.addEventListener('keydown',onKey);
+    document.getElementById('prop-visit').addEventListener('click',function(){document.getElementById('prop-visit-done').hidden=false;});
+    document.getElementById('prop-contact').addEventListener('click',function(){close();if(window.openKYC)window.openKYC(d);});
+  };
+})();
+</script>
+<script>
+(function(){
+  var cards=document.querySelectorAll('#situaciones .path-card');
+  if(!cards.length)return;
+  function openPath(name,card){
+    document.querySelectorAll('#situaciones .path-card').forEach(function(c){c.setAttribute('aria-expanded', c===card?'true':'false');});
+    var v=document.getElementById('sub-vivir'), a=document.getElementById('sub-arrendar');
+    v.hidden=name!=='vivir'; a.hidden=name!=='arrendar';
+    var sub=document.getElementById('sub-'+name);
+    if(sub)setTimeout(function(){sub.scrollIntoView({behavior:'smooth',block:'nearest'});},60);
+  }
+  cards.forEach(function(c){
+    c.addEventListener('click',function(){
+      var open=c.getAttribute('aria-expanded')==='true';
+      if(open){c.setAttribute('aria-expanded','false');document.getElementById('sub-'+c.dataset.path).hidden=true;}
+      else openPath(c.dataset.path,c);
+    });
+  });
+})();
+</script>
+<div class="kyc-ov" id="proc-ov" hidden role="dialog" aria-modal="true" aria-labelledby="proc-h">
+  <div class="kyc-modal proc-modal" style="position:relative">
+    <button type="button" class="kyc-x" id="proc-x" aria-label="Cerrar">✕</button>
+    <div class="proc-head">
+      <div class="proc-role" id="proc-role"></div>
+      <ol class="proc-steps" id="proc-stepbar"></ol>
+    </div>
+    <div class="proc-body" id="proc-body"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('proc-ov'); if(!ov) return;
+  var body=document.getElementById('proc-body'), bar=document.getElementById('proc-stepbar'), roleBox=document.getElementById('proc-role');
+  var STEPS=['Chat','Acuerdo','Contrato','Firma','Pago'];
+  var fmt=function(n){return '$'+Math.round(n).toLocaleString('es-CL');};
+  var S={role:'inquilino',step:0,agreed:600000,signMe:false,signOther:false};
+  function close(){window._modalTrap.close(ov);document.removeEventListener('keydown',onKey);}
+  function onKey(e){if(e.key==='Escape')close();}
+  document.getElementById('proc-x').addEventListener('click',close);
+  ov.addEventListener('click',function(e){if(e.target===ov)close();});
+  window.openProceso=function(role){S={role:role||'inquilino',step:0,agreed:600000,signMe:false,signOther:false};window._modalTrap.open(ov, document.getElementById('proc-x'));document.addEventListener('keydown',onKey);draw();};
+  var de=document.getElementById('demo-proceso'); if(de)de.addEventListener('click',function(){window.openProceso('inquilino');});
+
+  function go(n){S.step=n;S.signMe=false;S.signOther=false;draw();}
+  function roleBar(){
+    roleBox.innerHTML='<button type="button" aria-pressed="'+(S.role==='inquilino')+'">Ver como inquilino</button><button type="button" aria-pressed="'+(S.role==='dueño')+'">Ver como dueño</button>';
+    roleBox.children[0].onclick=function(){window.openProceso('inquilino');};
+    roleBox.children[1].onclick=function(){window.openProceso('dueño');};
+  }
+  function stepBar(){
+    bar.innerHTML=STEPS.map(function(t,i){var c=i<S.step?'done':(i===S.step?'active':'');return '<li class="'+c+'"'+(i<S.step?' tabindex="0" role="button" aria-label="Volver a '+t+'" data-step="'+i+'"':'')+'>'+t+'</li>';}).join('');
+    bar.querySelectorAll('[data-step]').forEach(function(li){li.onclick=function(){go(Number(li.dataset.step));};});
+  }
+  function draw(){
+    roleBar();stepBar();[chat,acuerdo,contrato,firma,pago][S.step]();
+    if(S.step>0){
+      var bk=document.createElement('button');bk.type='button';bk.className='proc-back';bk.textContent='← '+STEPS[S.step-1];
+      bk.onclick=function(){go(S.step-1);};
+      body.insertBefore(bk,body.firstChild);
+    }
+  }
+
+  function chat(){
+    var inq=S.role==='inquilino';
+    var other=inq?'Valentina (dueña)':'Laura (inquilina)';
+    var msgs=inq?[['other','¡Hola! Vi tu interés en el depto de Providencia 🙂'],['me','Hola, ¿sigue disponible desde el 1 de octubre?'],['other','Sí, disponible. La renta publicada es $600.000.']]
+                :[['other','¡Hola! Me interesa tu depto en Providencia.'],['me','¡Hola! Sí, disponible desde el 1 de octubre 🙂'],['other','Genial. ¿La renta es $600.000?'],['me','Exacto, $600.000.']];
+    body.innerHTML='<p class="chat-who">Chat con '+other+'</p><div class="chat">'+msgs.map(function(m){return '<div class="bubble '+m[0]+'">'+m[1]+'</div>';}).join('')+'</div>'
+      +'<p class="proc-note">Así conversan las partes dentro de Lofti, una vez que ambas identidades estén verificadas (en desarrollo). Cuando quieran avanzar, proponen las condiciones del arriendo.</p>'
+      +'<div class="proc-actions"><button type="button" class="btn btn-brand btn-lg" id="p-next" style="width:100%">Proponer condiciones del arriendo</button></div>';
+    document.getElementById('p-next').onclick=function(){go(1);};
+  }
+
+  function acuerdo(){
+    var inq=S.role==='inquilino';
+    body.innerHTML='<p class="proc-note">Cada oferta y contraoferta queda registrada. Cuando ambas partes aceptan, Lofti genera el contrato.</p>'
+      +'<div class="nego-row"><span>'+(inq?'Oferta de la dueña':'Tu oferta (dueño)')+'</span><b>'+fmt(600000)+'</b></div>'
+      +'<div class="proc-actions" id="p-acts"></div>';
+    var acts=document.getElementById('p-acts');
+    if(inq){
+      acts.innerHTML='<button type="button" class="btn btn-ghost-nav" id="p-counter">Contraofertar '+fmt(570000)+'</button><button type="button" class="btn btn-brand" id="p-accept">Aceptar '+fmt(600000)+'</button>';
+      document.getElementById('p-accept').onclick=function(){S.agreed=600000;go(2);};
+      document.getElementById('p-counter').onclick=function(){
+        acts.insertAdjacentHTML('beforebegin','<div class="nego-row"><span>Tu contraoferta</span><b>'+fmt(570000)+'</b></div><div class="nego-row agreed"><span>La dueña acepta en</span><b>'+fmt(580000)+'</b></div>');
+        acts.innerHTML='<button type="button" class="btn btn-brand btn-lg" id="p-accept2" style="width:100%">Aceptar '+fmt(580000)+' y generar contrato</button>';
+        document.getElementById('p-accept2').onclick=function(){S.agreed=580000;go(2);};
+      };
+    } else {
+      acts.insertAdjacentHTML('beforebegin','<div class="nego-row"><span>Contraoferta del inquilino</span><b>'+fmt(570000)+'</b></div>');
+      acts.innerHTML='<button type="button" class="btn btn-ghost-nav" id="p-propose">Proponer '+fmt(580000)+'</button><button type="button" class="btn btn-brand" id="p-accept">Aceptar '+fmt(570000)+'</button>';
+      document.getElementById('p-accept').onclick=function(){S.agreed=570000;go(2);};
+      document.getElementById('p-propose').onclick=function(){
+        acts.insertAdjacentHTML('beforebegin','<div class="nego-row"><span>Tu propuesta</span><b>'+fmt(580000)+'</b></div><div class="nego-row agreed"><span>El inquilino acepta</span><b>'+fmt(580000)+'</b></div>');
+        acts.innerHTML='<button type="button" class="btn btn-brand btn-lg" id="p-accept2" style="width:100%">Generar contrato</button>';
+        document.getElementById('p-accept2').onclick=function(){S.agreed=580000;go(2);};
+      };
+    }
+  }
+
+  function contrato(){
+    body.innerHTML='<div class="proc-contract"><h4>CONTRATO DE ARRIENDO</h4>'
+      +'<p><b>Primero.</b> Se da en arriendo el departamento en Providencia, para uso habitacional.</p>'
+      +'<p><b>Renta.</b> <mark>'+fmt(S.agreed)+'</mark> mensual, pagadera por mes anticipado dentro de los primeros 5 días.</p>'
+      +'<p><b>Plazo.</b> 12 meses, renovable automáticamente.</p>'
+      +'<p><b>Garantía.</b> <mark>'+fmt(S.agreed)+'</mark> (un mes), acordada entre las partes según contrato.</p>'
+      +'<p><b>Firma.</b> Firma electrónica simple (Ley 19.799) — proveedor pendiente de integración.</p></div>'
+      +'<div class="proc-actions"><button type="button" class="btn btn-brand btn-lg" id="p-next" style="width:100%">Revisar y firmar</button></div>';
+    document.getElementById('p-next').onclick=function(){go(3);};
+  }
+
+  function firma(){
+    var inq=S.role==='inquilino';
+    var youLabel=inq?'Tú (inquilino)':'Tú (dueño)';
+    var otherLabel=inq?'Valentina (dueña)':'Laura (inquilina)';
+    function card(lbl,signed){return '<div class="sign-card'+(signed?' signed':'')+'"><b>'+lbl+'</b><span class="st">'+(signed?'✓ Firmado':'Pendiente')+'</span></div>';}
+    function paint(){
+      body.innerHTML='<p class="proc-note">Ambas partes firman con <b>firma simple</b>. Cuando firman las dos, el contrato queda activo.</p>'
+        +'<div class="sign-row">'+card(youLabel,S.signMe)+card(otherLabel,S.signOther)+'</div>'
+        +'<div class="proc-actions" id="p-acts"></div>';
+      var acts=document.getElementById('p-acts');
+      if(!S.signMe){acts.innerHTML='<button type="button" class="btn btn-brand btn-lg" id="p-sign" style="width:100%">Firmar con firma simple</button>';document.getElementById('p-sign').onclick=function(){S.signMe=true;paint();};}
+      else if(!S.signOther){acts.innerHTML='<p class="proc-note" style="margin:0">Esperando la firma de la otra parte…</p><button type="button" class="btn btn-ghost btn-lg" id="p-sim-sign" style="width:100%;margin-top:8px">Simular firma de la otra parte (demo)</button>';document.getElementById('p-sim-sign').onclick=function(){S.signOther=true;paint();};}
+      else{acts.innerHTML='<div class="proc-done"><div class="big">✓</div><b style="font:600 16px var(--sans);color:var(--ink)">¡Contrato activo!</b></div><button type="button" class="btn btn-brand btn-lg" id="p-next" style="width:100%">Ir al primer pago</button>';document.getElementById('p-next').onclick=function(){go(4);};}
+    }
+    paint();
+  }
+
+  function pago(){
+    var inq=S.role==='inquilino';
+    var cargo=10000;
+    function done(msg){
+      body.innerHTML='<div class="proc-done"><div class="big">✓</div><b style="font:600 17px var(--sans);color:var(--ink)">Proceso completo</b><p style="font:400 14px/1.5 var(--sans);color:var(--muted);margin:10px 0 0">'+msg+'</p></div>'
+        +'<p class="proc-note">En la app real, todo esto queda guardado en «Mi arriendo»: contrato, pagos y comprobantes, para ambas partes.</p>'
+        +'<button type="button" class="btn btn-ghost btn-lg" id="p-close" style="width:100%">Cerrar</button>';
+      S.step=4;stepBar();document.getElementById('p-close').onclick=close;
+    }
+    if(inq){
+      body.innerHTML='<div style="margin-bottom:14px">'
+        +'<div class="pay2-row"><span>Renta (primer mes)</span><b class="mono">'+fmt(S.agreed)+'</b></div>'
+        +'<div class="pay2-row sub"><span>Cargo Lofti ($10.000)</span><span>'+fmt(cargo)+'</span></div>'
+        +'<div class="pay2-row sub"><span>Garantía (acordada entre partes)</span><span>'+fmt(S.agreed)+'</span></div>'
+        +'<div class="pay2-row total"><span>Total a pagar</span><b>'+fmt(S.agreed+cargo+S.agreed)+'</b></div></div>'
+        +'<div class="proc-actions" id="p-acts"><button type="button" class="btn btn-brand btn-lg" id="p-pay" style="width:100%">Pagar con Venti</button></div>';
+      document.getElementById('p-pay').onclick=function(){document.getElementById('p-acts').innerHTML='<p class="proc-note" style="margin:0">Simulando pago con Venti…</p>';setTimeout(function(){done('Pago simulado. Integración con Venti pendiente de configuración. Este es un entorno de demostración.');},1200);};
+    } else {
+      body.innerHTML='<p class="proc-note">El inquilino paga el primer mes dentro de Lofti. Venti procesa y te abona a tu cuenta.</p>'
+        +'<div style="margin-bottom:14px"><div class="pay2-row"><span>Renta</span><b class="mono">'+fmt(S.agreed)+'</b></div>'
+        +'<div class="pay2-row sub"><span>Cargo Lofti ($10.000) (dueño)</span><span>−'+fmt(cargo)+'</span></div>'
+        +'<div class="pay2-row total"><span>Abono a tu cuenta</span><b>'+fmt(S.agreed-cargo)+'</b></div></div>'
+        +'<div class="proc-actions" id="p-acts"><button type="button" class="btn btn-brand btn-lg" id="p-pay" style="width:100%">Simular recepción del pago</button></div>';
+      document.getElementById('p-pay').onclick=function(){document.getElementById('p-acts').innerHTML='<p class="proc-note" style="margin:0">Procesando…</p>';setTimeout(function(){done('Integración con Venti pendiente de configuración. Este es un entorno de demostración.');},900);};
+    }
+  }
+})();
+</script>
+<script type="module" src="js/pricing-ui.js"></script>
+</body>
+</html>

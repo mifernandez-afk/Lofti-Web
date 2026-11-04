@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/img_0.png">
+<title>Arrendar juntos | Lofti</title>
+<meta name="description" content="Encuentra una persona compatible para compartir arriendo o invita a alguien que ya conoces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"></noscript>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Ir al contenido</a>
+<div id="site-header"></div>
+<script src="js/site-nav.js?v=13" defer></script>
+
+<main id="main">
+
+  <!-- ─── Hero: Arrendar juntos ─── -->
+  <section class="aj-hero lofti-editorial shell" aria-labelledby="juntos-title">
+    <div class="lofti-editorial__copy">
+      <span class="label">UN HOGAR PARA COMPARTIR</span>
+      <h1 class="h1" id="juntos-title">¿Buscas arrendar con alguien?</h1>
+      <p class="aj-hero-sub">No necesitan pensar igual para vivir bien. Lofti te ayuda a explorar hábitos, expectativas y temas que conviene conversar antes de compartir un hogar. También puedes buscar vivienda con alguien que ya conoces.</p>
+
+      <div class="aj-paths">
+        <button type="button" class="aj-path-card" id="path-find" aria-expanded="false">
+          <div class="aj-path-icon">
+            <svg width="40" height="40" viewBox="0 0 256 256" fill="none"><use href="#i-group"/></svg>
+          </div>
+          <h2>Quiero encontrar con quién arrendar</h2>
+          <p>Responde algunas preguntas sobre tu forma de vivir y explora conexiones que tengan sentido para ti.</p>
+          <span class="btn btn-brand">Comenzar encuesta</span>
+        </button>
+
+        <button type="button" class="aj-path-card" id="path-invite" aria-expanded="false">
+          <div class="aj-path-icon">
+            <svg width="40" height="40" viewBox="0 0 256 256" fill="none"><use href="#i-chat"/></svg>
+          </div>
+          <h2>Ya tengo con quién arrendar</h2>
+          <p>Invita a esa persona y organicen juntos la búsqueda y postulación.</p>
+          <span class="btn btn-outline-brand">Invitar a alguien</span>
+        </button>
+      </div>
+    </div>
+    <div class="lofti-editorial__visual">
+      <img src="img/lofti-editorial/colaboracion_tablet.png"
+           alt="Dos personas conversan frente a una tablet"
+           width="1122" height="1402" decoding="async">
+    </div>
+  </section>
+
+  <!-- ─── V15: ¿Ser parecidos es suficiente? ─── -->
+  <section class="v15-scenarios shell" aria-labelledby="v15-scenarios-title">
+    <span class="label">CONVIVENCIA</span>
+    <h2 class="h2" id="v15-scenarios-title">Parecidos no siempre significa compatibles</h2>
+    <p class="v15-scenarios-intro">Compartir intereses puede acercarlos, pero la convivencia también depende de horarios, limpieza, visitas y la forma en que resuelven desacuerdos.</p>
+
+    <div class="v15-tabs" role="tablist" aria-label="Ejemplos de convivencia">
+      <button role="tab" id="sc-tab-0" aria-controls="sc-panel-0" aria-selected="true" tabindex="0" data-index="0" class="v15-tab v15-tab--active">Gustos compartidos</button>
+      <button role="tab" id="sc-tab-1" aria-controls="sc-panel-1" aria-selected="false" tabindex="-1" data-index="1" class="v15-tab">Diferencias que funcionan</button>
+      <button role="tab" id="sc-tab-2" aria-controls="sc-panel-2" aria-selected="false" tabindex="-1" data-index="2" class="v15-tab">Expectativas</button>
+    </div>
+
+    <div class="v15-panel" id="sc-panel-0" role="tabpanel" aria-labelledby="sc-tab-0" tabindex="0">
+      <div class="v15-panel-situation">
+        <div class="v15-panel-icon">
+          <svg width="32" height="32" viewBox="0 0 256 256" fill="none"><path d="M212.92,25.69a8,8,0,0,0-6.86-1.45l-128,32A8,8,0,0,0,72,64V174.08A36,36,0,1,0,88,204V70.25l112-28v99.83A36,36,0,1,0,216,172V32A8,8,0,0,0,212.92,25.69ZM52,224a20,20,0,1,1,20-20A20,20,0,0,1,52,224Zm128-32a20,20,0,1,1,20-20A20,20,0,0,1,180,192Z" fill="currentColor"/></svg>
+        </div>
+        <p class="v15-panel-shared">A ambos les gusta la música.</p>
+      </div>
+      <p class="v15-panel-conflict">Una persona necesita silencio para estudiar de noche y la otra suele escuchar música hasta tarde.</p>
+      <p class="v15-panel-insight"><strong>Tienen un interés en común, pero necesitan conversar sobre horarios y ruido.</strong></p>
+    </div>
+
+    <div class="v15-panel" id="sc-panel-1" role="tabpanel" aria-labelledby="sc-tab-1" tabindex="0" hidden>
+      <div class="v15-panel-situation">
+        <div class="v15-panel-icon">
+          <svg width="32" height="32" viewBox="0 0 256 256" fill="none"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H48a8,8,0,0,1,0-16H72.54a96.59,96.59,0,0,1-27-40.09A40,40,0,0,1,8,128v-8a8,8,0,0,1,16,0v8a24,24,0,0,0,20.37,23.7,96.79,96.79,0,0,1-.37-8.7V96a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8v48a96.79,96.79,0,0,1-.37,8.7A24,24,0,0,0,236,128v-8a8,8,0,0,1,16,0Z" fill="currentColor"/></svg>
+        </div>
+        <p class="v15-panel-shared">A una persona le gusta cocinar; a la otra no tanto.</p>
+      </div>
+      <p class="v15-panel-conflict">Ambas se sienten cómodas con una distribución distinta de las tareas.</p>
+      <p class="v15-panel-insight"><strong>Ser diferentes puede funcionar si existen acuerdos claros y responsabilidades equilibradas.</strong></p>
+    </div>
+
+    <div class="v15-panel" id="sc-panel-2" role="tabpanel" aria-labelledby="sc-tab-2" tabindex="0" hidden>
+      <div class="v15-panel-situation">
+        <div class="v15-panel-icon">
+          <svg width="32" height="32" viewBox="0 0 256 256" fill="none"><path d="M232,48H24A8,8,0,0,0,16,56V200a8,8,0,0,0,8,8H232a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM120,176H48V80h72Zm64,0H136V80h48ZM208,176h-8V80h8Z" fill="currentColor"/></svg>
+        </div>
+        <p class="v15-panel-shared">A ambas les importa que el departamento esté limpio.</p>
+      </div>
+      <p class="v15-panel-conflict">Una espera limpiar todos los días; la otra considera suficiente una vez por semana.</p>
+      <p class="v15-panel-insight"><strong>Compartir un valor general no siempre significa tener las mismas expectativas.</strong></p>
+    </div>
+
+    <p class="v15-scenarios-disclaimer">La encuesta ofrece información para conversar y decidir. No garantiza que dos personas sean compatibles.</p>
+  </section>
+
+  <!-- ─── V15: Seis dimensiones ─── -->
+  <section class="v15-dimensions shell">
+    <h2 class="h2">Lo que compartimos importa. Lo que acordamos, también.</h2>
+    <div class="v15-dim-grid">
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V76a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.2A16.07,16.07,0,0,0,56,180v36a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.09,16.09,0,0,0-6.35-12.77L141.27,128l52.38-39.59A16.09,16.09,0,0,0,200,75.64Z" fill="currentColor"/></svg></div>
+        <h3>Horarios</h3>
+        <p>Cuándo descansas, trabajas y necesitas tranquilidad.</p>
+      </div>
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M240,208H224V96a16,16,0,0,0-16-16H168a16,16,0,0,0-16,16v112H120V40A16,16,0,0,0,104,24H48A16,16,0,0,0,32,40V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16Z" fill="currentColor"/></svg></div>
+        <h3>Limpieza y orden</h3>
+        <p>Cómo organizas limpieza, objetos y espacios compartidos.</p>
+      </div>
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Z" fill="currentColor"/></svg></div>
+        <h3>Comunicación</h3>
+        <p>Cómo conversas, estableces límites y enfrentas desacuerdos.</p>
+      </div>
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm45.66-109.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L128,140.69l34.34-34.35A8,8,0,0,1,173.66,106.34Z" fill="currentColor"/></svg></div>
+        <h3>Acuerdos del hogar</h3>
+        <p>Qué es importante para ti y qué puedes negociar.</p>
+      </div>
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212Z" fill="currentColor"/></svg></div>
+        <h3>Visitas y espacio personal</h3>
+        <p>Visitas, tiempo compartido y privacidad.</p>
+      </div>
+      <div class="v15-dim-card">
+        <div class="v15-dim-icon"><svg width="28" height="28" viewBox="0 0 256 256" fill="none"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z" fill="currentColor"/></svg></div>
+        <h3>Intereses</h3>
+        <p>Afinidades que pueden acercarlos, sin definir por sí solas la convivencia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── V15: Metodología ─── -->
+  <section class="v15-method shell">
+    <h2 class="h2">Una forma más consciente de elegir con quién vivir.</h2>
+    <div class="v15-method-body">
+      <p>La investigación sobre convivencia sugiere que la similitud de personalidad, por sí sola, no explica toda la calidad de una relación entre compañeros de hogar. También importan los hábitos cotidianos, las expectativas recíprocas y la manera de resolver diferencias.</p>
+      <p>Por eso, Lofti busca ayudarte a reconocer coincidencias, diferencias y temas importantes para conversar antes de tomar una decisión. No prometemos una convivencia perfecta ni presentamos nuestras recomendaciones como una predicción científicamente validada.</p>
+    </div>
+    <details class="v15-biblio">
+      <summary>Fuentes y limitaciones</summary>
+      <div class="v15-biblio-body">
+        <ul>
+          <li>Wetzel, Schwartz y Vasu (1979). <em>Roommate Compatibility: Is There an Ideal Relationship?</em>, Journal of Applied Social Psychology, 9(5), 432–445. Distingue correspondencia con expectativas de similitud objetiva; muestra pequeña y antigua.</li>
+          <li>Kurtz y Sherker (2003). <em>Relationship Quality, Trait Similarity, and Self–Other Agreement on Personality Ratings in College Roommates</em>, Journal of Personality, 71(1), 21–48. Matiza la asociación directa entre similitud de rasgos y calidad de relación.</li>
+          <li>Pradyumna (2024). <em>The Science of Cohabitation: A Study on Roommate Compatibility Using Machine Learning</em>, Dublin Business School. Enfoque multidimensional exploratorio; sin precisión predictiva replicada para Chile.</li>
+          <li>Shekhawat et al. (2016). <em>Usability Test of Personality Type within a Roommate Matching Website: A Case Study</em>, Journal of International Technology and Information Management, 25(1). Referencia a diseño de cuestionarios y hábitos.</li>
+          <li>Nota metodológica Lofti: sistema de reglas diádicas de similitud, complementariedad y restricciones, sin score global. No equivale a tecnología validada en producción.</li>
+        </ul>
+        <p class="v15-biblio-note">La metodología de Lofti se inspira en estas fuentes pero no replica sus resultados. Las recomendaciones son orientativas y no constituyen una evaluación psicológica ni predicen la calidad de la convivencia.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── V15: Proceso en 3 pasos ─── -->
+  <section class="v15-steps shell">
+    <h2 class="h2">Conoce mejor antes de compartir</h2>
+    <div class="v15-steps-grid">
+      <div class="v15-step">
+        <div class="v15-step-num">1</div>
+        <h3>Cuéntanos sobre ti</h3>
+        <p>Responde preguntas sobre tus hábitos y lo que esperas de la convivencia.</p>
+      </div>
+      <div class="v15-step-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 256 256" fill="none"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" fill="currentColor"/></svg>
+      </div>
+      <div class="v15-step">
+        <div class="v15-step-num">2</div>
+        <h3>Explora conexiones</h3>
+        <p>Revisa coincidencias, diferencias y temas para conversar.</p>
+      </div>
+      <div class="v15-step-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 256 256" fill="none"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" fill="currentColor"/></svg>
+      </div>
+      <div class="v15-step">
+        <div class="v15-step-num">3</div>
+        <h3>Decidan juntos</h3>
+        <p>Conversen, busquen vivienda y organicen una postulación compartida.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── V15: FAQ convivencia ─── -->
+  <section class="v15-faq shell">
+    <h2 class="h2">Preguntas sobre convivencia</h2>
+    <div class="faq-legal">
+      <details>
+        <summary>¿Cómo sabe Lofti con quién puedo convivir?</summary>
+        <div class="faq-body">
+          <p class="faq-brief">Lofti no predice la convivencia. Compara respuestas sobre hábitos, expectativas y formas de comunicación usando reglas basadas en similitud, complementariedad y restricciones, por dimensión. Muestra coincidencias y diferencias para conversar, no un puntaje de compatibilidad.</p>
+        </div>
+      </details>
+      <details>
+        <summary>¿Son científicamente validados los resultados?</summary>
+        <div class="faq-body">
+          <p class="faq-brief">La metodología se inspira en investigación académica sobre convivencia entre pares, pero no replica estudios validados para la población chilena. Los resultados son orientativos.</p>
+        </div>
+      </details>
+      <details>
+        <summary>¿Qué pasa si tengo preguntas legales sobre el arriendo?</summary>
+        <div class="faq-body">
+          <p class="faq-brief">Revisa nuestra <a href="preguntas.html">sección de preguntas frecuentes</a> con respuestas legales detalladas y enlaces a la Biblioteca del Congreso Nacional.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ─── V19: CTA cierre ─── -->
+  <section class="lofti-cta shell" aria-labelledby="cta-juntos">
+    <div class="lofti-cta__visual">
+      <img src="img/lofti-editorial/mudanza_en_armonia.png"
+           alt="Dos personas organizan cajas de mudanza"
+           width="1122" height="1402" loading="lazy">
+    </div>
+    <div class="lofti-cta__copy">
+      <h2 class="h2" id="cta-juntos">¿Listos para buscar hogar?</h2>
+      <p>Encuentra alguien con quien arrendar o invita a la persona con quien ya quieres hacerlo.</p>
+      <div class="lofti-cta__actions">
+        <button type="button" class="btn btn-brand" id="cta-find">Comenzar encuesta</button>
+        <button type="button" class="btn btn-outline-brand" id="cta-invite">Invitar a alguien</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Path A: Survey flow (7 steps) ─── -->
+  <section class="aj-survey shell" id="survey-section" hidden>
+    <div class="aj-survey-header">
+      <button type="button" class="aj-back" id="survey-back" aria-label="Volver">&larr; Volver</button>
+      <h2 class="h2">Encuesta de convivencia</h2>
+      <p class="aj-survey-desc">Responde con honestidad. No hay respuestas correctas ni incorrectas. Tus respuestas son privadas y solo se usan para encontrar coincidencias.</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="aj-progress">
+      <div class="aj-progress-bar" id="survey-bar" style="width:0%"></div>
+    </div>
+    <div class="aj-steps" id="survey-steps"></div>
+
+    <!-- Survey panels -->
+    <div class="aj-panel" id="survey-panel"></div>
+
+    <!-- Navigation -->
+    <div class="aj-survey-nav">
+      <button type="button" class="btn btn-ghost-nav" id="survey-prev" disabled>Atrás</button>
+      <button type="button" class="btn btn-ghost-nav" id="survey-save">Guardar y seguir después</button>
+      <button type="button" class="btn btn-brand" id="survey-next">Continuar</button>
+    </div>
+  </section>
+
+  <!-- ─── Results: Compatibility ─── -->
+  <section class="aj-results shell" id="results-section" hidden>
+    <button type="button" class="aj-back" id="results-back" aria-label="Volver">&larr; Volver</button>
+    <h2 class="h2">Resultados de convivencia</h2>
+    <p class="aj-results-desc">Estos resultados muestran coincidencias y diferencias por tema, no un puntaje global. Son orientativos y no predicen el resultado de la convivencia.</p>
+    <span class="kyc-demo">Demostración</span>
+
+    <div class="aj-match-cards" id="match-cards"></div>
+
+    <div class="aj-results-actions">
+      <button type="button" class="btn btn-brand" id="results-contact">Solicitar contacto</button>
+      <button type="button" class="btn btn-ghost-nav" id="results-search">Buscar vivienda juntos</button>
+    </div>
+  </section>
+
+  <!-- ─── Path B: Invite flow ─── -->
+  <section class="aj-invite shell" id="invite-section" hidden>
+    <button type="button" class="aj-back" id="invite-back" aria-label="Volver">&larr; Volver</button>
+    <h2 class="h2">Invita a tu compañero o compañera</h2>
+    <p>Envía un enlace para que se una a tu grupo de búsqueda. Cada persona mantiene sus datos privados.</p>
+    <span class="kyc-demo">Demostración</span>
+
+    <div class="aj-invite-form">
+      <label for="invite-name">Nombre</label>
+      <input type="text" id="invite-name" placeholder="Nombre de tu compañero/a" autocomplete="off">
+      <label for="invite-email">Correo electrónico</label>
+      <input type="email" id="invite-email" placeholder="correo@ejemplo.cl" autocomplete="off">
+      <button type="button" class="btn btn-brand" id="invite-send">Enviar invitación</button>
+      <p class="aj-invite-note">En la versión real se enviará un enlace temporal seguro. No se comparten datos sensibles en la invitación.</p>
+    </div>
+
+    <div class="aj-invite-status" id="invite-status" hidden>
+      <div class="aj-invite-pending">
+        <span class="label">Invitación enviada</span>
+        <p id="invite-msg"></p>
+        <div class="aj-invite-members" id="invite-members"></div>
+        <button type="button" class="btn btn-brand" id="invite-sim-accept">Simular aceptación (demo)</button>
+      </div>
+    </div>
+
+    <!-- Joint search -->
+    <div class="aj-joint" id="joint-section" hidden>
+      <h3>Búsqueda compartida</h3>
+      <p>Definan presupuesto y preferencias. Ambos ven las mismas viviendas.</p>
+      <div class="aj-joint-config">
+        <div class="aj-joint-field">
+          <label for="joint-budget">Presupuesto máximo conjunto</label>
+          <input type="text" id="joint-budget" placeholder="Ej: 800.000" autocomplete="off">
+        </div>
+        <div class="aj-joint-field">
+          <label for="joint-comuna">Comuna preferida</label>
+          <select id="joint-comuna">
+            <option value="">Todas</option>
+            <option>Providencia</option>
+            <option>Ñuñoa</option>
+            <option>Santiago</option>
+            <option>Las Condes</option>
+            <option>Macul</option>
+          </select>
+        </div>
+      </div>
+      <button type="button" class="btn btn-brand" id="joint-search">Buscar viviendas</button>
+      <p class="aj-joint-note">Al encontrar una vivienda, podrán postular juntos. Cada persona tiene su contrato individual.</p>
+    </div>
+  </section>
+
+  <!-- ─── Joint rental demo ─── -->
+  <section class="aj-rental shell" id="rental-section" hidden>
+    <button type="button" class="aj-back" id="rental-back" aria-label="Volver">&larr; Volver</button>
+    <h2 class="h2">Postulación conjunta</h2>
+    <p>Cada integrante tiene su contrato individual. El propietario aprueba a ambos.</p>
+    <span class="kyc-demo">Demostración</span>
+
+    <div class="aj-rental-group" id="rental-group"></div>
+
+    <div class="aj-rental-contracts" id="rental-contracts"></div>
+
+    <div class="aj-cohabitation" id="cohabitation-section" hidden>
+      <h3>Acuerdo de convivencia <span class="aj-optional">(opcional)</span></h3>
+      <p>Acuerden temas del día a día. No es un contrato legal. Pueden dejar temas sin resolver y retomarlos.</p>
+      <div class="aj-cohab-topics" id="cohab-topics"></div>
+      <button type="button" class="btn btn-ghost-nav" id="cohab-confirm">Confirmar acuerdos (demo)</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- SVG symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-group" viewBox="0 0 256 256"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z" fill="currentColor"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 256 256"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z" fill="currentColor"/></symbol>
+    <symbol id="i-ok-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm45.66-109.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L128,140.69l34.34-34.35A8,8,0,0,1,173.66,106.34Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<footer>
+  <div class="shell">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Lofti, volver arriba"><img class="logo" src="img/principal.png" alt="Lofti" width="74" height="30"></a>
+        <p class="mission">Encontrar hogar debería ser más fácil. Vivir juntos también.</p>
+      </div>
+      <div><h3 class="label">Navegación</h3><ul><li><a href="como-funciona.html">Qué es Lofti</a></li><li><a href="como-funciona.html#como-funciona">Cómo funciona</a></li><li><a href="companeros.html">Arrendar juntos</a></li><li><a href="precios.html">Precios</a></li><li><a href="preguntas.html">Preguntas</a></li></ul></div>
+      <div><h3 class="label">Legal</h3><ul><li>Términos y condiciones <span class="soon">Próximamente</span></li><li>Política de privacidad <span class="soon">Próximamente</span></li><li>Política de pagos y garantía <span class="soon">Próximamente</span></li></ul></div>
+      <div><h3 class="label">Contacto</h3><ul><li>soporte@lofti.cl</li><li>WhatsApp +56 9 XXXX XXXX</li><li><a href="https://instagram.com/lofti.cl">Instagram @lofti.cl</a></li></ul></div>
+    </div>
+    <img class="skyline" src="img/santiago-skyline.webp" alt="Silueta de Santiago con la cordillera de los Andes" loading="lazy" width="1200" height="300">
+    <div class="legal"><span>© 2026 Lofti</span><span>Santiago de Chile</span></div>
+  </div>
+</footer>
+
+<script src="js/arrendar-juntos.js" defer></script>
+<script defer>
+(function(){
+  var tabs = document.querySelectorAll('.v15-tab');
+  var panels = document.querySelectorAll('.v15-panel');
+  if (!tabs.length) return;
+  function activate(idx) {
+    tabs.forEach(function(t, i) {
+      var on = i === idx;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      t.classList.toggle('v15-tab--active', on);
+    });
+    panels.forEach(function(p, i) { p.hidden = i !== idx; });
+  }
+  tabs.forEach(function(t) {
+    t.addEventListener('click', function() { activate(Number(t.dataset.index)); });
+    t.addEventListener('keydown', function(e) {
+      var idx = Number(t.dataset.index);
+      if (e.key === 'ArrowRight') { e.preventDefault(); var n = (idx + 1) % tabs.length; activate(n); tabs[n].focus(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); var n = (idx - 1 + tabs.length) % tabs.length; activate(n); tabs[n].focus(); }
+      if (e.key === 'Home') { e.preventDefault(); activate(0); tabs[0].focus(); }
+      if (e.key === 'End') { e.preventDefault(); activate(tabs.length - 1); tabs[tabs.length - 1].focus(); }
+    });
+  });
+  var ctaFind = document.getElementById('cta-find');
+  var ctaInvite = document.getElementById('cta-invite');
+  var pathFind = document.getElementById('path-find');
+  var pathInvite = document.getElementById('path-invite');
+  if (ctaFind && pathFind) ctaFind.addEventListener('click', function() { pathFind.click(); pathFind.scrollIntoView({behavior:'smooth', block:'center'}); });
+  if (ctaInvite && pathInvite) ctaInvite.addEventListener('click', function() { pathInvite.click(); pathInvite.scrollIntoView({behavior:'smooth', block:'center'}); });
+})();
+</script>
+</body>
+</html>
