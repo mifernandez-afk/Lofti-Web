@@ -28,18 +28,20 @@ body{
   justify-content:center;
   text-align:center;
   padding:24px;
+  overflow:hidden;
 }
 .container{
   max-width:540px;
   width:100%;
+  position:relative;
+  z-index:1;
 }
-.logo{
-  font-family:'Newsreader',serif;
-  font-size:3.2rem;
-  font-weight:600;
-  color:var(--brand);
-  letter-spacing:-0.02em;
-  margin-bottom:8px;
+.logo-wrap{
+  margin-bottom:16px;
+}
+.logo-wrap img{
+  height:48px;
+  width:auto;
 }
 .tagline{
   font-family:'Newsreader',serif;
@@ -86,12 +88,14 @@ body{
   50%{opacity:0.5;transform:scale(0.8)}
 }
 .skyline{
-  margin-top:48px;
+  position:fixed;
+  bottom:0;
+  left:0;
   width:100%;
-  max-width:480px;
-  opacity:0.12;
+  pointer-events:none;
 }
 .skyline svg{
+  display:block;
   width:100%;
   height:auto;
 }
@@ -99,17 +103,20 @@ body{
   position:fixed;
   bottom:24px;
   font-size:0.75rem;
-  color:#a09890;
+  color:rgba(107,21,24,0.4);
+  z-index:2;
 }
 @media(max-width:480px){
-  .logo{font-size:2.4rem}
+  .logo-wrap img{height:36px}
   .tagline{font-size:1.2rem}
 }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="logo">Lofti</div>
+  <div class="logo-wrap">
+    <img src="img/principal.png" alt="Lofti" height="48">
+  </div>
   <div class="divider"></div>
   <h1 class="tagline">Estamos construyendo algo nuevo<br>para el arriendo en Santiago.</h1>
   <p class="message">
@@ -121,11 +128,34 @@ body{
     <span class="dot"></span>
     En desarrollo
   </div>
-  <div class="skyline">
-    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 80V55h12V40h8v15h10V30h6v25h14V45h8v10h10V35h6v20h12V28h8v27h10V42h8v13h14V38h6v17h10V50h8v5h12V32h6v23h10V48h8v7h14V40h6v15h10V52h8v3h14V35h6v20h10V45h8v10h12V30h6v25h10V55h8v-5h14v5h8V42h6v13h10V50h8v5h14V38h6v17h10V48h8v7h14V35h6v20h12V80z" fill="var(--brand)"/>
-    </svg>
-  </div>
+</div>
+<div class="skyline">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="
+      M0 120 V75 h18 V55 h10 V75 h14 V42 h8 V75 h16 V60 h10 V75
+      h18 V48 h8 V75 h14 V65 h10 V75 h16 V38 h10 V75 h12 V55 h8 V75
+      h20 V50 h8 V75 h14 V62 h10 V75 h16 V44 h10 V75 h12 V58 h8 V75
+      h18 V35 h12 V75 h14 V52 h8 V75 h16 V60 h10 V75 h20 V46 h8 V75
+      h14 V56 h10 V75 h12 V40 h10 V75 h18 V58 h8 V75 h16 V50 h10 V75
+      h14 V65 h8 V75 h20 V42 h10 V75 h12 V55 h8 V75 h16 V48 h10 V75
+      h18 V60 h8 V75 h14 V38 h10 V75 h16 V52 h8 V75 h12 V62 h10 V75
+      h20 V44 h8 V75 h14 V56 h10 V75 h18 V50 h8 V75 h16 V35 h12 V75
+      h14 V58 h8 V75 h12 V46 h10 V75 h20 V55 h8 V75 h14 V40 h10 V75
+      V120 Z
+    " fill="var(--brand)" opacity="0.08"/>
+    <path d="
+      M0 120 V90 h20 V72 h8 V90 h16 V78 h10 V90 h18 V68 h8 V90
+      h14 V80 h10 V90 h16 V74 h8 V90 h12 V82 h10 V90 h20 V70 h8 V90
+      h14 V76 h10 V90 h18 V72 h8 V90 h16 V84 h10 V90 h12 V78 h8 V90
+      h20 V66 h10 V90 h14 V80 h8 V90 h16 V74 h10 V90 h18 V82 h8 V90
+      h14 V70 h10 V90 h12 V76 h8 V90 h20 V72 h10 V90 h16 V84 h8 V90
+      h14 V68 h10 V90 h18 V78 h8 V90 h12 V74 h10 V90 h20 V80 h8 V90
+      h14 V72 h10 V90 h16 V66 h10 V90 h18 V82 h8 V90 h12 V76 h8 V90
+      h20 V70 h10 V90 h14 V84 h8 V90 h16 V78 h10 V90 h18 V72 h8 V90
+      h14 V80 h10 V90 h12 V74 h8 V90
+      V120 Z
+    " fill="var(--brand)" opacity="0.05"/>
+  </svg>
 </div>
 <div class="footer">Santiago, Chile</div>
 </body>
