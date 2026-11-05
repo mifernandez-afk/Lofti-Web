@@ -7,62 +7,64 @@
 <meta name="description" content="Lofti: arriendos mas simples y seguros en Santiago de Chile. Pronto disponible.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --brand:#6B1518;
   --match:#AEA432;
-  --surface:#F6F1EA;
+  --surface:#FFFFFF;
   --ink:#1F1B19;
   --home:#CEDAFF;
 }
+html,body{height:100%}
 body{
   font-family:'Geist',system-ui,sans-serif;
   background:var(--surface);
   color:var(--ink);
-  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  overflow:hidden;
+}
+.content{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
   text-align:center;
-  padding:24px;
-  overflow:hidden;
-}
-.container{
-  max-width:540px;
-  width:100%;
-  position:relative;
-  z-index:1;
+  padding:clamp(24px,4vw,48px) 24px 24px;
 }
 .logo-wrap{
-  margin-bottom:16px;
+  margin-bottom:28px;
 }
 .logo-wrap img{
-  height:48px;
+  height:80px;
   width:auto;
 }
-.tagline{
+.kicker{
+  font-family:'Geist',system-ui,sans-serif;
+  font-size:0.74rem;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin-bottom:16px;
+}
+h1{
   font-family:'Newsreader',serif;
-  font-size:1.6rem;
-  font-weight:400;
+  font-size:clamp(2rem, 5vw, 3.2rem);
+  font-weight:500;
+  line-height:1.15;
   color:var(--ink);
-  line-height:1.3;
-  margin-bottom:32px;
+  margin-bottom:24px;
+  max-width:600px;
 }
-.divider{
-  width:60px;
-  height:3px;
-  background:var(--match);
-  margin:0 auto 32px;
-  border-radius:2px;
-}
-.message{
+.desc{
   font-size:1rem;
   line-height:1.6;
   color:#5a5550;
-  margin-bottom:40px;
+  max-width:520px;
+  margin-bottom:36px;
 }
 .badge{
   display:inline-flex;
@@ -74,7 +76,7 @@ body{
   padding:10px 24px;
   font-size:0.875rem;
   color:var(--brand);
-  font-weight:500;
+  font-weight:600;
 }
 .badge .dot{
   width:8px;
@@ -88,41 +90,41 @@ body{
   50%{opacity:0.5;transform:scale(0.8)}
 }
 .skyline{
-  position:fixed;
-  bottom:0;
-  left:0;
   width:100%;
-  pointer-events:none;
+  flex:1;
+  min-height:40vh;
+  overflow:hidden;
+  position:relative;
 }
-.skyline svg{
-  display:block;
-  width:100%;
+.skyline img{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:110%;
+  max-width:none;
   height:auto;
 }
-.footer{
-  position:fixed;
-  bottom:24px;
-  font-size:0.75rem;
-  color:rgba(107,21,24,0.4);
-  z-index:2;
-}
-@media(max-width:480px){
-  .logo-wrap img{height:36px}
-  .tagline{font-size:1.2rem}
+@media(max-width:600px){
+  .logo-wrap img{height:56px}
+  .content{padding:24px 20px 12px}
+  .logo-wrap{margin-bottom:16px}
+  h1{margin-bottom:16px}
+  .desc{margin-bottom:20px;font-size:0.9rem}
+  .skyline img{width:180%}
 }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="content">
   <div class="logo-wrap">
-    <img src="img/principal.png" alt="Lofti" height="48">
+    <img src="img/principal.png" alt="Lofti" height="80">
   </div>
-  <div class="divider"></div>
-  <h1 class="tagline">Estamos construyendo algo nuevo<br>para el arriendo en Santiago.</h1>
-  <p class="message">
-    Una plataforma que conecta arrendatarios y arrendadores con transparencia,
-    contrato digital y pagos gestionados.<br>
-    Pronto disponible.
+  <p class="kicker">Arriendos mas simples y seguros</p>
+  <h1>Todo tu arriendo,<br>en un solo lugar.</h1>
+  <p class="desc">
+    Encuentra un hogar, busca con quien compartirlo o publica tu propiedad.
+    Lofti reune la busqueda y los pasos del arriendo en una experiencia clara.
   </p>
   <div class="badge">
     <span class="dot"></span>
@@ -130,33 +132,7 @@ body{
   </div>
 </div>
 <div class="skyline">
-  <svg viewBox="0 0 1200 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="
-      M0 120 V75 h18 V55 h10 V75 h14 V42 h8 V75 h16 V60 h10 V75
-      h18 V48 h8 V75 h14 V65 h10 V75 h16 V38 h10 V75 h12 V55 h8 V75
-      h20 V50 h8 V75 h14 V62 h10 V75 h16 V44 h10 V75 h12 V58 h8 V75
-      h18 V35 h12 V75 h14 V52 h8 V75 h16 V60 h10 V75 h20 V46 h8 V75
-      h14 V56 h10 V75 h12 V40 h10 V75 h18 V58 h8 V75 h16 V50 h10 V75
-      h14 V65 h8 V75 h20 V42 h10 V75 h12 V55 h8 V75 h16 V48 h10 V75
-      h18 V60 h8 V75 h14 V38 h10 V75 h16 V52 h8 V75 h12 V62 h10 V75
-      h20 V44 h8 V75 h14 V56 h10 V75 h18 V50 h8 V75 h16 V35 h12 V75
-      h14 V58 h8 V75 h12 V46 h10 V75 h20 V55 h8 V75 h14 V40 h10 V75
-      V120 Z
-    " fill="var(--brand)" opacity="0.08"/>
-    <path d="
-      M0 120 V90 h20 V72 h8 V90 h16 V78 h10 V90 h18 V68 h8 V90
-      h14 V80 h10 V90 h16 V74 h8 V90 h12 V82 h10 V90 h20 V70 h8 V90
-      h14 V76 h10 V90 h18 V72 h8 V90 h16 V84 h10 V90 h12 V78 h8 V90
-      h20 V66 h10 V90 h14 V80 h8 V90 h16 V74 h10 V90 h18 V82 h8 V90
-      h14 V70 h10 V90 h12 V76 h8 V90 h20 V72 h10 V90 h16 V84 h8 V90
-      h14 V68 h10 V90 h18 V78 h8 V90 h12 V74 h10 V90 h20 V80 h8 V90
-      h14 V72 h10 V90 h16 V66 h10 V90 h18 V82 h8 V90 h12 V76 h8 V90
-      h20 V70 h10 V90 h14 V84 h8 V90 h16 V78 h10 V90 h18 V72 h8 V90
-      h14 V80 h10 V90 h12 V74 h8 V90
-      V120 Z
-    " fill="var(--brand)" opacity="0.05"/>
-  </svg>
+  <img src="img/hero-city.webp" alt="Santiago de Chile, skyline con cordillera de los Andes" width="2000" height="667">
 </div>
-<div class="footer">Santiago, Chile</div>
 </body>
 </html>
