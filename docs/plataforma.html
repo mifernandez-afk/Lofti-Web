@@ -1,0 +1,556 @@
+<meta charset="utf-8">
+<title>Plataforma Lofti — Spec completa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  :root{
+    --bg:#F6F1EA; --paper:#FFFFFF; --ink:#1F1B19; --ink-2:#3D3632; --muted:#6B625A;
+    --line:#E6DED4; --line-strong:#D5CABD;
+    --brand:#6B1518; --brand-soft:#F2CBCC; --brand-tint:#F8EDEC;
+    --inq:#6B1518; --inq-bg:#F8EDEC; --arr:#5B6410; --arr-bg:#F1F0DC;
+    --warn:#A45A12; --warn-bg:#FBEEDD; --ok:#3F6B2A; --ok-bg:#EAF2E5;
+    --info:#2B5B9E; --info-bg:#E8F0FA;
+    --display:'Newsreader','Iowan Old Style',Georgia,serif;
+    --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'Geist Mono',ui-monospace,Menlo,Consolas,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --inq:#E8A3A5; --inq-bg:#2A1618; --arr:#C9C04E; --arr-bg:#242310;
+    --warn:#D9A876; --warn-bg:#2E2012; --ok:#A6C48C; --ok-bg:#1E2A16;
+    --info:#7EB3E0; --info-bg:#152030;
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --inq:#E8A3A5; --inq-bg:#2A1618; --arr:#C9C04E; --arr-bg:#242310;
+    --warn:#D9A876; --warn-bg:#2E2012; --ok:#A6C48C; --ok-bg:#1E2A16;
+    --info:#7EB3E0; --info-bg:#152030;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);margin:0}
+  .shell{max-width:920px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+  p{margin:0}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--brand)}
+  header{background:var(--brand);color:#FBF0E9}
+  header .shell{padding-block:30px 34px}
+  .eyebrow{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  header h1{font-size:clamp(1.9rem,4.5vw,2.6rem);margin:12px 0 10px;color:#FDF6F0}
+  header p{max-width:66ch;color:#EAD3C5;font-size:1.02rem}
+  main .shell{padding-block:34px 64px}
+  .intro{font-size:1.02rem;color:var(--ink-2);max-width:70ch;margin:26px 0 0}
+
+  /* Reglas transversales */
+  .rules{background:var(--brand-tint);border:1px solid var(--brand-soft);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+  .rules b{color:var(--ink)}
+  .rules li{font-size:14.5px;color:var(--ink-2);margin-bottom:4px}
+
+  /* Journeys */
+  .journey{margin-top:40px}
+  .journey-head{display:flex;align-items:center;gap:12px;border-top:2px solid var(--line-strong);padding-top:22px;margin-bottom:8px}
+  .journey-head .dot{width:14px;height:14px;border-radius:50%;flex:none}
+  .journey-head h2{font-size:1.6rem}
+  .journey-head .who{font:400 14px var(--sans);color:var(--muted)}
+  .j-inq .journey-head h2{color:var(--inq)} .j-inq .dot{background:var(--inq)}
+  .j-arr .journey-head h2{color:var(--arr)} .j-arr .dot{background:var(--arr)}
+
+  .steps{position:relative;margin-top:10px}
+  .steps::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line-strong)}
+  .step{position:relative;padding:0 0 26px 48px}
+  .step-n{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--paper);border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font:600 13px var(--mono);color:var(--ink);z-index:1}
+  .j-inq .step-n{border-color:var(--inq);color:var(--inq)}
+  .j-arr .step-n{border-color:var(--arr);color:var(--arr)}
+  .step h3{font:600 16px var(--sans);color:var(--ink);margin:4px 0 2px}
+  .step-do{font:400 14px var(--sans);color:var(--muted);margin:0 0 10px}
+  .details{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .detail{background:var(--info-bg);border-left:3px solid var(--info);border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .detail b{color:var(--ink)}
+  .detail .label{display:block;font:600 13px var(--sans);color:var(--info);margin-bottom:2px}
+  .edge{background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .edge .label{display:block;font:600 13px var(--sans);color:var(--warn);margin-bottom:2px}
+  .edge b{color:var(--ink)}
+  .step.ok-step .step-do{color:var(--ok)}
+
+  /* Tablas */
+  .tbl-wrap{margin-top:40px;border-top:2px solid var(--line-strong);padding-top:22px}
+  .tbl-wrap h2{font-size:1.5rem;color:var(--brand);margin-bottom:16px}
+  .tbl-wrap p.sub{color:var(--muted);font-size:14px;margin:-10px 0 16px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px}
+  th{text-align:left;font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--line-strong);background:var(--paper)}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+  td b{color:var(--ink);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .tag{display:inline-block;font:600 10px var(--sans);letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;margin-left:4px}
+  .t-inq{background:var(--inq-bg);color:var(--inq)}
+  .t-arr{background:var(--arr-bg);color:var(--arr)}
+  .t-both{background:var(--line);color:var(--ink-2)}
+
+  /* State machine */
+  .sm{margin-top:40px;border-top:2px solid var(--line-strong);padding-top:22px}
+  .sm h2{font-size:1.5rem;color:var(--brand);margin-bottom:16px}
+  .sm h3{font:600 15px var(--sans);color:var(--ink);margin:20px 0 8px}
+  .state-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+  .state{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font:500 13px var(--mono);color:var(--ink)}
+  .state.active{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+  .state.end{border-color:var(--muted);background:var(--line);color:var(--ink-2)}
+  .state.danger{border-color:var(--warn);background:var(--warn-bg);color:var(--warn)}
+  .arrow{color:var(--muted);font-size:18px;line-height:1}
+  .trans{font:400 13px var(--sans);color:var(--muted);margin:4px 0 16px;padding-left:4px}
+  .trans b{color:var(--ink)}
+
+  .foot{margin-top:46px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font:400 13px/1.55 var(--sans)}
+  .foot b{color:var(--ink)}
+  @media(max-width:520px){header h1{font-size:1.7rem} .state-row{gap:4px} .state{font-size:11px;padding:4px 8px}}
+</style>
+
+<header>
+  <div class="shell">
+    <p class="eyebrow">Lofti · Spec de plataforma</p>
+    <h1>Cómo funciona Lofti, de principio a fin</h1>
+    <p>Recorrido completo del inquilino y del dueño, con estados, documentos, privacidad y máquina de estados. Todo se valida en el servidor; nada se salta desde el navegador.</p>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+
+  <p class="intro" style="margin-top:28px"><b>Lofti es la capa de confianza del arriendo entre personas en Chile.</b> Verifica a inquilino y dueño, deja el contrato en regla (firma electrónica simple, Ley 19.799), permite documentar la garantía (acordada entre las partes) y centraliza pagos vía Venti (tarifa fija de $10.000/mes por parte).</p>
+
+  <div class="rules">
+    <b>Dos reglas transversales:</b>
+    <ul style="margin:8px 0 0;padding-left:20px">
+      <li><b>Verificación única:</b> el perfil verificado se reutiliza en todas las postulaciones. No se repite el proceso por cada propiedad.</li>
+      <li><b>Privacidad por diseño:</b> cada parte ve resúmenes de verificación, nunca los documentos crudos del otro (RUT, cédula, liquidaciones). Solo resultados: "identidad verificada", "ingreso cumple 3x renta".</li>
+    </ul>
+  </div>
+
+  <!-- ===================== INQUILINO ===================== -->
+  <section class="journey j-inq">
+    <div class="journey-head"><span class="dot"></span><h2>Inquilino</h2><span class="who">quien busca dónde vivir</span></div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Explora sin registrarse</h3>
+        <p class="step-do">Navega propiedades en lista o mapa con filtros: comuna, tipo (depto/casa/pieza), precio máximo, piezas, baños. Ve ficha completa, fotos, precio total (renta + cargo Lofti $10.000) y requisitos del dueño.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Qué ve</span>Ficha pública: fotos, ubicación aproximada en mapa, m², precio con desglose (renta + $10.000), requisitos (ingreso mínimo, documentos), tipo de arriendo (depto completo / pieza con roommates).</div>
+          <div class="detail"><span class="label">Sin cuenta puede</span>Explorar, filtrar, ver fichas completas, ver mapa. <b>No puede:</b> agendar visita, contactar, postular.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Crea cuenta y arma perfil</h3>
+        <p class="step-do">Registro con email + contraseña. Verifica email y teléfono. Completa su perfil reutilizable.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Verificación de identidad</span>Cédula de identidad vía proveedor acreditado (ClaveÚnica o foto de cédula + selfie como ruta alternativa). Resultado: "identidad verificada" o "revisión manual pendiente".</div>
+          <div class="detail"><span class="label">Antecedentes</span>Consulta automática de antecedentes comerciales y judiciales. Resultado binario: cumple / no cumple. El inquilino ve su propio detalle; el dueño solo ve el resumen.</div>
+          <div class="detail"><span class="label">Acreditación de ingresos</span>Liquidaciones de sueldo (dependiente), boletas/F29 (independiente), liquidación de pensión (pensionado), o cartola bancaria. Lofti valida y extrae: "ingreso mensual verificado: $X".</div>
+          <div class="detail"><span class="label">Compatibilidad (opcional)</span>Si busca pieza o roommate: cuestionario de hábitos (horarios, ruido, limpieza, mascotas, visitas, espacios comunes). Genera perfil de compatibilidad para matching.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">No tiene ClaveÚnica o falla verificación</span>Ruta alternativa: foto de cédula + selfie + revisión asistida por soporte humano. Plazo: 24-48h. Estado: "verificación en proceso".</div>
+          <div class="edge"><span class="label">Independiente sin liquidaciones</span>Acepta boletas de honorarios, F29, cartola. Lofti calcula ingreso promedio últimos 6 meses.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Precalificación por propiedad</h3>
+        <p class="step-do">Antes de postular, ve requisito por requisito si cumple. Verde = cumple, rojo = no cumple, con alternativas.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Requisitos típicos</span>Ingreso mínimo (3x renta), sin deudas morosas, identidad verificada, antigüedad laboral mínima. Cada propiedad define los suyos.</div>
+          <div class="detail"><span class="label">Si no alcanza</span>Opciones: agregar <b>codeudor/aval</b> (pasa por la misma verificación), <b>sumar ingresos</b> con otro arrendatario (postulación conjunta), o filtrar "propiedades donde sí califico".</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Ingreso no alcanza</span>Nunca dejarlo sin salida. Mostrar alternativas concretas: codeudor, coinquilino, propiedades más baratas que sí cumple.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">4</div>
+        <h3>Agenda visita</h3>
+        <p class="step-do">Solicita una visita presencial o virtual. Requiere cuenta verificada. Coordina horarios disponibles del dueño.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Requisito</span>Cuenta creada + identidad verificada (mínimo en proceso). Sin verificación completa no puede postular, pero sí agendar.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">5</div>
+        <h3>Postula (solo o en grupo)</h3>
+        <p class="step-do">Envía solicitud formal a la propiedad. Si va con alguien, invita a la otra persona.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Requisito</span>Perfil completo: identidad verificada + antecedentes + ingresos acreditados + precalificación aprobada para esa propiedad.</div>
+          <div class="detail"><span class="label">Postulación conjunta</span>Cada persona se verifica individualmente. Ingresos se suman y evalúan en conjunto. Terminan en un contrato con corresponsables.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Dos personas quieren arrendar juntas</span>Invitación por email/link. Ambos verificados. Ingresos sumados. Contrato con corresponsabilidad solidaria. Ambos firman.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">6</div>
+        <h3>Chat y negociación</h3>
+        <p class="step-do">Canal de comunicación dentro de Lofti. Oferta, contraoferta, acuerdo de condiciones.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Requisito</span>Ambas partes verificadas. Chat solo entre partes con relación activa (postulación aceptada o en revisión).</div>
+          <div class="detail"><span class="label">Negociación estructurada</span>Precio, fecha de inicio, duración del contrato, condiciones especiales. Cada propuesta queda registrada. Al aceptar, las condiciones pasan al borrador del contrato.</div>
+          <div class="detail"><span class="label">Documentos adicionales</span>El dueño puede solicitar documentos extra vía Lofti. El inquilino autoriza, sube, y el dueño ve el resultado verificado (no el documento crudo).</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">7</div>
+        <h3>Contrato generado</h3>
+        <p class="step-do">Lofti genera el contrato con las condiciones acordadas en el chat. Ambas partes revisan antes de firmar.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Contenido</span>Partes identificadas, propiedad, renta, garantía, duración, condiciones de término, inventario inicial, obligaciones de cada parte. Basado en modelo estándar con cláusulas personalizables.</div>
+          <div class="detail"><span class="label">Estado</span><code>borrador</code> — editable por ambas partes hasta que ambos marquen "listo para firmar".</div>
+        </div>
+      </div>
+
+      <div class="step ok-step">
+        <div class="step-n">8</div>
+        <h3>Firma electrónica simple</h3>
+        <p class="step-do">Firma electrónica simple (Ley 19.799). No requiere notaría. Proveedor de firma pendiente de integración; este paso es una propuesta de diseño.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Proceso</span>Re-autenticación (pedir contraseña o 2FA) antes de firmar. Firma registrada con timestamp, IP, hash del documento. Estado pasa a <code>firmado_una_parte</code> y luego a <code>firmado_ambas</code>.</div>
+          <div class="detail"><span class="label">Validez</span>Ley 19.799 reconoce firma electrónica simple para actos entre privados. Lofti guarda evidencia de integridad y no repudio.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">9</div>
+        <h3>Pago inicial: primer mes + garantía</h3>
+        <p class="step-do">Paga primer mes de renta + cargo Lofti $10.000 + garantía (típicamente un mes). Todo vía Venti dentro de Lofti.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Desglose</span>Renta $580.000 + Cargo Lofti $10.000 + Garantía $580.000. Garantía acordada entre las partes según contrato.</div>
+          <div class="detail"><span class="label">Método</span>Tarjeta de crédito/débito o transferencia bancaria, procesado por Venti. Lofti nunca almacena datos de tarjeta (tokenización Venti). Pago idempotente: reintento no cobra doble.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">10</div>
+        <h3>Entrega e inventario</h3>
+        <p class="step-do">Acta de entrega con inventario fotográfico. Base para la liquidación de garantía al final.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Inventario</span>Checklist de estado de cada espacio/item con fotos. Ambas partes confirman. Queda vinculado al contrato y a la garantía.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">11</div>
+        <h3>Vive el arriendo</h3>
+        <p class="step-do">Pagos mensuales automáticos, gestión de cuentas del hogar, reportes de problemas.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Pagos</span>Recordatorio automático antes del vencimiento. Pago con un clic. Comprobante para ambas partes. Historial completo.</div>
+          <div class="detail"><span class="label">Cuentas del hogar</span>Registro de servicios (agua, luz, gas, internet). Quién pagó, cuánto corresponde a cada uno (si hay roommates). División proporcional.</div>
+          <div class="detail"><span class="label">Problemas</span>Reportar desperfectos con fotos. Se define responsabilidad (uso normal vs. daño), quién responde, quién paga. Queda vinculado a la garantía.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Se corta internet o falla pago</span>Guardado automático del avance. Pago idempotente: reintento no cobra doble. Retoma donde quedó.</div>
+          <div class="edge"><span class="label">Desperfecto o daño</span>Reporte con fotos, definición de responsabilidad, vinculación a garantía para la liquidación final.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">12</div>
+        <h3>Salida y liquidación de garantía</h3>
+        <p class="step-do">Acta de salida, comparación con inventario de entrada, liquidación de garantía con reglas claras.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Proceso</span>Aviso de término (según contrato) → acta de salida con inventario fotográfico → comparación entrada vs. salida → propuesta de liquidación → ambas partes confirman o disputan.</div>
+          <div class="detail"><span class="label">Garantía</span>Si todo OK: devolución completa en 5 días hábiles. Si hay descuentos: propuesta detallada con evidencia. Si hay desacuerdo: proceso de disputa con reglas.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Término anticipado</span>Condiciones según contrato (aviso previo, indemnización). Lofti guía el acta de salida. No al criterio unilateral.</div>
+          <div class="edge"><span class="label">Reemplazar roommate</span>Nuevo ocupa se verifica. Con autorización de ambas partes, se firma anexo o nuevo contrato. Se ajustan corresponsables y garantía.</div>
+          <div class="edge"><span class="label">Desacuerdo por garantía</span>Disputa con reglas: se compara acta de entrada vs. salida con evidencia fotográfica. No queda al criterio de una sola parte. Plazo de resolución definido.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== ARRENDADOR ===================== -->
+  <section class="journey j-arr">
+    <div class="journey-head"><span class="dot"></span><h2>Arrendador</h2><span class="who">quien arrienda su propiedad</span></div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Crea cuenta y verifica identidad</h3>
+        <p class="step-do">Registro con email + contraseña. Misma verificación de identidad que el inquilino.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Verificación</span>Cédula + antecedentes. Resultado: "dueño verificado". Perfil reutilizable para todas sus propiedades.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Verifica la propiedad</h3>
+        <p class="step-do">Lofti confirma titularidad y derecho a arrendar (el control que hoy hace la notaría).</p>
+        <div class="details">
+          <div class="detail"><span class="label">Titularidad</span>Verificación de dominio vigente vía Conservador de Bienes Raíces o documento acreditado. Si hay varios dueños: mandato o poder notarial de los copropietarios autorizando la publicación y firma.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Varios dueños</span>Validar quién está autorizado a publicar y firmar. Mandato/poder de copropietarios requerido.</div>
+          <div class="edge"><span class="label">Falla verificación</span>Ruta alternativa + revisión asistida por soporte. No quedar bloqueado.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Publica el aviso</h3>
+        <p class="step-do">Define tipo (depto completo / casa / pieza), precio, condiciones, requisitos que precalifican, fotos.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Campos</span>Tipo, comuna, dirección (exacta solo visible tras match), m², habitaciones, baños, precio renta, garantía requerida, requisitos de ingreso mínimo, antigüedad laboral, restricciones (mascotas, fumadores), fecha disponible, fotos.</div>
+          <div class="detail"><span class="label">Requisitos como filtro</span>Los requisitos que defina el dueño se convierten en reglas de precalificación. Solo postulantes que cumplan llegan a su bandeja.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Depto completo vs. pieza</span>Si elige "depto completo", no entra al flujo de compatibilidad/roommates. Si elige "pieza", activa matching de compatibilidad.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">4</div>
+        <h3>Recibe postulantes precalificados</h3>
+        <p class="step-do">Bandeja con postulaciones ya filtradas por requisitos. Cada postulante muestra resumen verificado, no documentos crudos.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Qué ve el dueño</span>Nombre, foto perfil, resumen: "identidad verificada", "ingreso cumple 3x renta", "antecedentes OK", "antigüedad laboral 2+ años". Puntaje de compatibilidad si aplica (pieza). Nunca: RUT, cédula, liquidaciones, dirección actual.</div>
+          <div class="detail"><span class="label">Funciones</span>Comparar postulantes lado a lado, ordenar por fecha/puntaje, filtrar por criterios.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">5</div>
+        <h3>Solicita documentos adicionales</h3>
+        <p class="step-do">Si necesita más información, la pide a través de Lofti. El inquilino autoriza y sube; el dueño ve resultado verificado.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Flujo</span>Dueño solicita → inquilino recibe notificación → autoriza y sube → Lofti verifica → dueño ve resultado ("contrato laboral vigente: sí, desde 2023").</div>
+          <div class="detail"><span class="label">Privacidad</span>El dueño nunca descarga el documento original. Ve el dato verificado que necesita para decidir.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">6</div>
+        <h3>Chatea y negocia</h3>
+        <p class="step-do">Mismo canal bidireccional. Negociación estructurada de precio y condiciones.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-n">7</div>
+        <h3>Selecciona uno, rechaza al resto</h3>
+        <p class="step-do">Elige al postulante (o grupo) para avanzar al contrato. Los demás reciben rechazo con motivo general.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Rechazo</span>Motivo general respetuoso (sin datos sensibles). Los rechazados pueden postular a otras propiedades sin rehacer verificación.</div>
+        </div>
+      </div>
+
+      <div class="step ok-step">
+        <div class="step-n">8</div>
+        <h3>Contrato y firma</h3>
+        <p class="step-do">Contrato generado con condiciones acordadas. Firma electrónica simple (Ley 19.799) — proveedor pendiente de integración. Garantía acordada entre las partes.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-n">9</div>
+        <h3>Recibe pagos mensuales</h3>
+        <p class="step-do">Venti abona renta − $10.000 a la cuenta del dueño en 1-3 días hábiles. Comprobante automático.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Cobro</span>Inquilino paga $580.000 + $10.000 cargo Lofti. Venti procesa. Dueño recibe $570.000 ($580.000 − $10.000). Comprobante para ambas partes.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Atraso en pago</span>Recordatorio automático a ambas partes. Pasos y plazos del contrato para gestión de cobro. Historial disponible para ambos. Cobranza no agresiva pero firme.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">10</div>
+        <h3>Gestiona el arriendo</h3>
+        <p class="step-do">Estado de pagos, atrasos, daños, cuentas. Todo en un solo lugar.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Dashboard</span>Pagos recibidos, pagos pendientes, reportes de problemas, estado del contrato, próximas fechas importantes (renovación, término).</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Daños en la propiedad</span>Problema registrado con evidencia. Se define responsabilidad y pago. Vinculado a liquidación de garantía.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">11</div>
+        <h3>Cierre y liquidación de garantía</h3>
+        <p class="step-do">Término del contrato, acta de salida, devolución o aplicación de la garantía.</p>
+        <div class="details">
+          <div class="detail"><span class="label">Proceso</span>Acta de salida con inventario → comparación con acta de entrada → propuesta de liquidación → confirmación o disputa.</div>
+        </div>
+        <div class="details" style="margin-top:8px">
+          <div class="edge"><span class="label">Término anticipado</span>Condiciones de aviso e indemnización según contrato. Lofti guía el proceso.</div>
+          <div class="edge"><span class="label">Desacuerdo por descuento de garantía</span>Proceso de disputa con reglas y evidencia. No queda al criterio de una sola parte.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== TABLA DE DOCUMENTOS ===================== -->
+  <div class="tbl-wrap">
+    <h2>Documentos por parte y momento</h2>
+    <p class="sub">Qué pide Lofti a cada parte, para qué, y cuándo.</p>
+
+    <h4 style="font:600 14px var(--sans);color:var(--ink);margin:12px 0 8px">Verificación (una vez, perfil reutilizable)</h4>
+    <table>
+      <thead><tr><th>Documento</th><th>Quién</th><th>Para qué</th><th>Qué guarda Lofti</th></tr></thead>
+      <tbody>
+        <tr><td><b>Cédula de identidad</b></td><td><span class="tag t-both">Ambos</span></td><td>Verificar identidad real</td><td>Resultado verificado + hash. Documento cifrado, acceso restringido.</td></tr>
+        <tr><td><b>Antecedentes comerciales</b></td><td><span class="tag t-inq">Inquilino</span></td><td>Solvencia, sin deudas morosas</td><td>Resultado: cumple / no cumple. No se almacena detalle.</td></tr>
+        <tr><td><b>Antecedentes judiciales</b></td><td><span class="tag t-inq">Inquilino</span></td><td>Sin antecedentes penales relevantes</td><td>Resultado binario. No se almacena detalle.</td></tr>
+        <tr><td><b>Liquidaciones / boletas / F29</b></td><td><span class="tag t-inq">Inquilino</span></td><td>Acreditar ingreso mensual</td><td>Monto verificado: "$X/mes". Documentos cifrados en reposo.</td></tr>
+        <tr><td><b>Título de dominio / certificado CBR</b></td><td><span class="tag t-arr">Dueño</span></td><td>Confirmar titularidad</td><td>Resultado: "propiedad verificada". Documento cifrado.</td></tr>
+        <tr><td><b>Mandato copropietarios</b></td><td><span class="tag t-arr">Dueño</span></td><td>Autorización si hay varios dueños</td><td>Resultado: "autorizado a publicar/firmar". Si aplica.</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="font:600 14px var(--sans);color:var(--ink);margin:12px 0 8px">Transacción (por arriendo)</h4>
+    <table>
+      <thead><tr><th>Documento / dato</th><th>Quién</th><th>Cuándo</th><th>Qué guarda Lofti</th></tr></thead>
+      <tbody>
+        <tr><td><b>Contrato de arriendo</b></td><td><span class="tag t-both">Ambos</span></td><td>Al firmar</td><td>Documento completo con firmas, hashes, timestamps. Descargable por ambas partes.</td></tr>
+        <tr><td><b>Inventario de entrega</b></td><td><span class="tag t-both">Ambos</span></td><td>Al entregar</td><td>Checklist con fotos, confirmado por ambas partes.</td></tr>
+        <tr><td><b>Comprobantes de pago</b></td><td><span class="tag t-both">Ambos</span></td><td>Cada mes</td><td>Monto, fecha, estado. Generado por Venti.</td></tr>
+        <tr><td><b>Reportes de problemas</b></td><td><span class="tag t-both">Ambos</span></td><td>Durante arriendo</td><td>Descripción + fotos + resolución. Vinculado a garantía.</td></tr>
+        <tr><td><b>Acta de salida</b></td><td><span class="tag t-both">Ambos</span></td><td>Al terminar</td><td>Inventario final + fotos + comparación con entrega. Firmado por ambos.</td></tr>
+        <tr><td><b>Liquidación de garantía</b></td><td><span class="tag t-both">Ambos</span></td><td>Tras salida</td><td>Desglose de descuentos (si los hay) con evidencia. Aprobado o en disputa.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== TABLA DE PRIVACIDAD ===================== -->
+  <div class="tbl-wrap">
+    <h2>Qué ve cada parte (privacidad)</h2>
+    <p class="sub">Resúmenes sí, documentos crudos nunca.</p>
+
+    <table>
+      <thead><tr><th>Dato</th><th>Inquilino ve</th><th>Dueño ve</th></tr></thead>
+      <tbody>
+        <tr><td><b>Identidad</b></td><td>Su propio detalle completo</td><td>"Identidad verificada" + nombre</td></tr>
+        <tr><td><b>RUT / cédula</b></td><td>Su propio RUT</td><td>No. Nunca.</td></tr>
+        <tr><td><b>Antecedentes</b></td><td>Su propio detalle</td><td>"Antecedentes OK" o "no cumple"</td></tr>
+        <tr><td><b>Ingresos</b></td><td>Su monto verificado</td><td>"Ingreso cumple 3x renta" (no el monto exacto salvo que inquilino autorice)</td></tr>
+        <tr><td><b>Documentos subidos</b></td><td>Sus propios documentos</td><td>Resultado verificado, no el documento</td></tr>
+        <tr><td><b>Dirección actual</b></td><td>Suya</td><td>No. Hasta el contrato.</td></tr>
+        <tr><td><b>Propiedad (dirección exacta)</b></td><td>Solo tras match/postulación aceptada</td><td>Su propia dirección</td></tr>
+        <tr><td><b>Titularidad de propiedad</b></td><td>"Propiedad verificada"</td><td>Su propio certificado</td></tr>
+        <tr><td><b>Contrato</b></td><td>Completo (su copia)</td><td>Completo (su copia)</td></tr>
+        <tr><td><b>Pagos</b></td><td>Sus pagos + comprobantes</td><td>Pagos recibidos + comprobantes</td></tr>
+        <tr><td><b>Datos bancarios del dueño</b></td><td>No. Nunca.</td><td>Su propia cuenta</td></tr>
+        <tr><td><b>Datos de tarjeta</b></td><td>Solo en Venti (tokenizado)</td><td>No aplica</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== MAQUINA DE ESTADOS ===================== -->
+  <div class="sm">
+    <h2>Máquina de estados</h2>
+    <p style="font-size:14.5px;color:var(--ink-2);margin-bottom:20px">Toda transición se valida en el servidor. La UI oculta botones si falta un paso, pero el servidor vuelve a comprobarlo. Si llega una petición sin la precondición, la rechaza con <code>403</code>.</p>
+
+    <!-- Postulacion -->
+    <h3>Postulación</h3>
+    <div class="state-row">
+      <span class="state">enviada</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">en_revision</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">aceptada</span>
+    </div>
+    <div class="state-row" style="margin-top:-4px;margin-left:180px">
+      <span class="arrow">&searr;</span>
+      <span class="state end">rechazada</span>
+    </div>
+    <div class="trans"><b>enviada &rarr; en_revision:</b> dueño abre la postulación. <b>en_revision &rarr; aceptada:</b> dueño selecciona. <b>en_revision &rarr; rechazada:</b> dueño descarta (con motivo). <b>Precondición para enviar:</b> perfil completo + precalificación aprobada.</div>
+
+    <!-- Contrato -->
+    <h3>Contrato</h3>
+    <div class="state-row">
+      <span class="state">borrador</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state">firmado_una_parte</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">firmado_ambas</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">activo</span>
+    </div>
+    <div class="trans"><b>borrador &rarr; firmado_una_parte:</b> primera firma (cualquiera de las dos). <b>firmado_una_parte &rarr; firmado_ambas:</b> segunda firma. <b>firmado_ambas &rarr; activo:</b> pago inicial completado (primer mes + garantía). Re-autenticación requerida para cada firma.</div>
+
+    <!-- Arriendo -->
+    <h3>Arriendo</h3>
+    <div class="state-row">
+      <span class="state active">activo</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">al_dia</span>
+    </div>
+    <div class="state-row" style="margin-left:80px">
+      <span class="arrow">&searr;</span>
+      <span class="state danger">atrasado</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state">(vuelve a al_dia tras pago)</span>
+    </div>
+    <div class="state-row">
+      <span class="state">en_termino</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state end">cerrado</span>
+    </div>
+    <div class="trans"><b>activo &rarr; al_dia:</b> pago recibido a tiempo. <b>al_dia &rarr; atrasado:</b> pasa fecha de vencimiento sin pago. <b>atrasado &rarr; al_dia:</b> pago recibido. <b>al_dia/atrasado &rarr; en_termino:</b> aviso de término (según contrato). <b>en_termino &rarr; cerrado:</b> acta de salida firmada + garantía liquidada.</div>
+
+    <!-- Garantia -->
+    <h3>Garantía</h3>
+    <div class="state-row">
+      <span class="state active">retenida</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state">en_liquidacion</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state end">devuelta</span>
+    </div>
+    <div class="state-row" style="margin-top:-4px;margin-left:220px">
+      <span class="arrow">&searr;</span>
+      <span class="state end">aplicada</span>
+    </div>
+    <div class="state-row" style="margin-top:-4px;margin-left:220px">
+      <span class="arrow">&searr;</span>
+      <span class="state danger">en_disputa</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state end">resuelta</span>
+    </div>
+    <div class="trans"><b>retenida &rarr; en_liquidacion:</b> acta de salida firmada. <b>en_liquidacion &rarr; devuelta:</b> sin descuentos, ambas partes confirman. <b>en_liquidacion &rarr; aplicada:</b> descuentos aceptados por ambas partes. <b>en_liquidacion &rarr; en_disputa:</b> una parte no acepta la propuesta. <b>en_disputa &rarr; resuelta:</b> acuerdo o resolución con reglas. Garantía solo se mueve por transiciones válidas con registro.</div>
+
+    <!-- Verificacion -->
+    <h3>Verificación de identidad</h3>
+    <div class="state-row">
+      <span class="state">sin_verificar</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state">en_proceso</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">verificado</span>
+    </div>
+    <div class="state-row" style="margin-top:-4px;margin-left:150px">
+      <span class="arrow">&searr;</span>
+      <span class="state danger">revision_manual</span>
+      <span class="arrow">&rarr;</span>
+      <span class="state active">verificado</span>
+    </div>
+    <div class="state-row" style="margin-top:-4px;margin-left:300px">
+      <span class="arrow">&searr;</span>
+      <span class="state end">rechazado</span>
+    </div>
+    <div class="trans"><b>sin_verificar &rarr; en_proceso:</b> usuario inicia verificación. <b>en_proceso &rarr; verificado:</b> verificación automática exitosa. <b>en_proceso &rarr; revision_manual:</b> verificación automática falla, pasa a soporte. <b>revision_manual &rarr; verificado/rechazado:</b> resolución de soporte (24-48h).</div>
+  </div>
+
+  <p class="foot">Alcance: recorrido completo de ambas partes con estados, documentos y privacidad. Los controles de seguridad (server-side) están en <b>seguridad.html</b>. Los edge cases de cada paso están en <b>flujos-app.html</b>. Fuente: prompt consolidado del producto + auditoría UX de Lofti.</p>
+</div>
+</main>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">

@@ -1,0 +1,255 @@
+<title>Flujos de la app</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  :root{
+    --bg:#F6F1EA; --paper:#FFFFFF; --ink:#1F1B19; --ink-2:#3D3632; --muted:#6B625A;
+    --line:#E6DED4; --line-strong:#D5CABD;
+    --brand:#6B1518; --brand-soft:#F2CBCC; --brand-tint:#F8EDEC;
+    --inq:#6B1518; --inq-bg:#F8EDEC; --arr:#5B6410; --arr-bg:#F1F0DC;
+    --warn:#A45A12; --warn-bg:#FBEEDD; --ok:#3F6B2A; --ok-bg:#EAF2E5;
+    --display:'Newsreader','Iowan Old Style',Georgia,serif;
+    --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'Geist Mono',ui-monospace,Menlo,Consolas,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --inq:#E8A3A5; --inq-bg:#2A1618; --arr:#C9C04E; --arr-bg:#242310;
+    --warn:#D9A876; --warn-bg:#2E2012; --ok:#A6C48C; --ok-bg:#1E2A16;
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --inq:#E8A3A5; --inq-bg:#2A1618; --arr:#C9C04E; --arr-bg:#242310;
+    --warn:#D9A876; --warn-bg:#2E2012; --ok:#A6C48C; --ok-bg:#1E2A16;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);margin:0}
+  .shell{max-width:900px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+  p{margin:0}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--brand)}
+  header{background:var(--brand);color:#FBF0E9}
+  header .shell{padding-block:30px 34px}
+  .eyebrow{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  header h1{font-size:clamp(1.9rem,4.5vw,2.6rem);margin:12px 0 10px;color:#FDF6F0}
+  header p{max-width:66ch;color:#EAD3C5;font-size:1.02rem}
+  main .shell{padding-block:34px 64px}
+  .intro{font-size:1.02rem;color:var(--ink-2);max-width:70ch;margin:26px 0 0}
+
+  .journey{margin-top:40px}
+  .journey-head{display:flex;align-items:center;gap:12px;border-top:2px solid var(--line-strong);padding-top:22px;margin-bottom:8px}
+  .journey-head .dot{width:14px;height:14px;border-radius:50%;flex:none}
+  .journey-head h2{font-size:1.6rem}
+  .journey-head .who{font:400 14px var(--sans);color:var(--muted)}
+  .j-inq .journey-head h2{color:var(--inq)} .j-inq .dot{background:var(--inq)}
+  .j-arr .journey-head h2{color:var(--arr)} .j-arr .dot{background:var(--arr)}
+
+  .steps{position:relative;margin-top:10px}
+  .steps::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line-strong)}
+  .step{position:relative;padding:0 0 26px 48px}
+  .step-n{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--paper);border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font:600 13px var(--mono);color:var(--ink);z-index:1}
+  .j-inq .step-n{border-color:var(--inq);color:var(--inq)}
+  .j-arr .step-n{border-color:var(--arr);color:var(--arr)}
+  .step h3{font:600 16px var(--sans);color:var(--ink);margin:4px 0 2px}
+  .step-do{font:400 14px var(--sans);color:var(--muted);margin:0 0 10px}
+  .probs{display:flex;flex-direction:column;gap:8px}
+  .prob{background:var(--warn-bg);border:1px solid transparent;border-left:3px solid var(--warn);border-radius:8px;padding:10px 13px}
+  .prob .q{display:block;font:600 13.5px var(--sans);color:var(--warn);margin-bottom:2px}
+  .prob .a{display:block;font:400 13.5px/1.5 var(--sans);color:var(--ink-2)}
+  .prob .a b{color:var(--ink)}
+  .step.ok-step .step-do{color:var(--ok)}
+  .noprob{font:400 13px var(--sans);color:var(--muted);font-style:italic}
+
+  .foot{margin-top:46px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font:400 13px/1.55 var(--sans)}
+  .foot b{color:var(--ink)}
+  @media(max-width:520px){header h1{font-size:1.7rem}}
+</style>
+
+<header>
+  <div class="shell">
+    <p class="eyebrow">Lofti · Spec de producto</p>
+    <h1>El recorrido del inquilino y del arrendador, paso a paso</h1>
+    <p>Dos journeys que avanzan por el camino normal, y en cada paso: qué hace la persona y qué problema puede aparecer, con cómo lo resuelve Lofti. Son flujos de la app y el backend, no de la landing.</p>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+  <p class="intro">Lee cada columna de arriba hacia abajo: así avanza la persona. Los recuadros ámbar son los puntos donde algo se puede salir del camino ideal y lo que Lofti debe hacer ahí.</p>
+
+  <!-- INQUILINO -->
+  <section class="journey j-inq">
+    <div class="journey-head"><span class="dot"></span><h2>Inquilino</h2><span class="who">quien busca dónde vivir</span></div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Explora y mira una propiedad</h3>
+        <p class="step-do">Ve departamentos, precios (con el total Lofti) y requisitos, en lista o mapa.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Quiere mirar o visitar sin entregar documentos</span><span class="a">La ficha es abierta. <b>Agendar visita</b> pide solo nombre y contacto; la identidad se confirma recién al postular o chatear.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Revisa si cumple los requisitos</h3>
+        <p class="step-do">Ve lo que pide la propiedad frente a su perfil, requisito por requisito.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Su ingreso no alcanza el mínimo</span><span class="a">Ofrecer <b>codeudor/aval</b>, <b>complementar ingresos</b> con otro arrendatario, o filtrar "lo que sí califico". Nunca dejarlo sin salida.</span></div>
+          <div class="prob"><span class="q">Es independiente o pensionado (sin liquidaciones)</span><span class="a">Aceptar <b>boletas / F29</b>, <b>liquidación de pensión</b> o cartola como forma de acreditar ingreso.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Confirma su identidad</h3>
+        <p class="step-do">Verificación de identidad y antecedentes, una sola vez, para todas sus postulaciones.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">No tiene ClaveÚnica o falla la verificación</span><span class="a">Ruta alternativa (<b>foto de cédula + selfie</b>) y <b>revisión asistida</b> por soporte humano.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">4</div>
+        <h3>Postula (solo o en grupo)</h3>
+        <p class="step-do">Envía su solicitud a la propiedad; si va con alguien, invita a la otra persona.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Dos personas quieren arrendar juntas</span><span class="a">Cada una se verifica, los <b>ingresos se suman</b> y se evalúan en conjunto; terminan en <b>un contrato con corresponsables</b> que ambos firman.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">5</div>
+        <h3>Espera la respuesta del arrendador</h3>
+        <p class="step-do">El arrendador revisa su perfil precalificado.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">El arrendador lo rechaza</span><span class="a">Aviso con un <b>motivo general</b> (sin datos sensibles) y poder <b>postular a otras</b> sin rehacer la verificación.</span></div>
+        </div>
+      </div>
+
+      <div class="step ok-step">
+        <div class="step-n">6</div>
+        <h3>Firma el contrato</h3>
+        <p class="step-do">Contrato con firma electrónica (Ley 19.799), con las condiciones acordadas. Entrega la garantía, acordada entre las partes.</p>
+        <p class="noprob">Detalle legal y de firmas → documento de contrato y leyes.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-n">7</div>
+        <h3>Paga el arriendo cada mes</h3>
+        <p class="step-do">Pago dentro de Lofti con Venti; queda comprobante.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Se corta internet o falla el pago</span><span class="a"><b>Guardado automático</b> del avance y <b>pago idempotente</b>: un reintento no cobra dos veces. Retoma donde quedó.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">8</div>
+        <h3>Vive en la propiedad</h3>
+        <p class="step-do">Contrato, pagos, cuentas y problemas del hogar, a la vista para ambas partes.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Hay un desperfecto o daño</span><span class="a">Reportar con <b>fotos</b>; se define si es uso normal o daño, quién responde y quién paga, y queda <b>vinculado a la garantía</b>.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">9</div>
+        <h3>Sale o cambia de convivientes</h3>
+        <p class="step-do">Al cumplir el plazo o antes, con acta de salida y liquidación de garantía.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Se quiere retirar anticipadamente</span><span class="a">Ver las <b>condiciones de término</b> de su propio contrato, dar el aviso y firmar el acta de salida.</span></div>
+          <div class="prob"><span class="q">Necesita reemplazar a un roommate</span><span class="a">El nuevo se verifica; con autorización de las partes se firma un <b>anexo o nuevo contrato</b> que ajusta corresponsables y garantía.</span></div>
+          <div class="prob"><span class="q">Hay desacuerdo por la garantía</span><span class="a"><b>Disputa con reglas</b>: se compara acta de entrada vs. salida con evidencia; no queda al criterio de una sola parte.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ARRENDADOR -->
+  <section class="journey j-arr">
+    <div class="journey-head"><span class="dot"></span><h2>Arrendador</h2><span class="who">quien arrienda su propiedad</span></div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Publica la propiedad</h3>
+        <p class="step-do">Define precio, condiciones y requisitos, y el tipo de arriendo.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Quiere arrendar el depto completo (sin convivencia)</span><span class="a">Poder elegir <b>"depto completo"</b> y no verse forzado al flujo de compatibilidad y roommates.</span></div>
+          <div class="prob"><span class="q">La propiedad tiene varios dueños</span><span class="a">Validar <b>quién está autorizado</b> a publicar y firmar (mandato / poder de los copropietarios).</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Verifica su propiedad e identidad</h3>
+        <p class="step-do">Lofti revisa titularidad y derecho a arrendar (el control que hoy hace la notaría).</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Falla la verificación de identidad o titularidad</span><span class="a">Misma ruta alternativa y <b>revisión asistida</b> que el inquilino; no quedar bloqueado sin salida.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Recibe postulantes precalificados</h3>
+        <p class="step-do">Ve postulantes que ya cumplen requisitos, con un <b>resumen</b> de su verificación, no sus documentos crudos.</p>
+        <p class="noprob">Qué ve y qué queda privado → documento de seguridad.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-n">4</div>
+        <h3>Elige o rechaza</h3>
+        <p class="step-do">Selecciona un postulante (o un grupo) para avanzar al contrato.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Rechaza a un postulante</span><span class="a">Enviar un <b>motivo respetuoso</b> y dejar que la persona postule a otras propiedades sin fricción.</span></div>
+        </div>
+      </div>
+
+      <div class="step ok-step">
+        <div class="step-n">5</div>
+        <h3>Firma el contrato</h3>
+        <p class="step-do">Contrato en regla con firma electrónica; la garantía queda acordada entre las partes.</p>
+        <p class="noprob">Modelo y validez legal → documento de contrato y leyes.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-n">6</div>
+        <h3>Cobra el arriendo</h3>
+        <p class="step-do">Venti abona a su cuenta cada mes; Lofti aplica el cargo y deja el comprobante.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">El arrendatario se atrasa en el pago</span><span class="a"><b>Recordatorio automático</b> a ambas partes, pasos y plazos del contrato para la gestión de cobro, e historial disponible para los dos.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">7</div>
+        <h3>Gestiona el arriendo</h3>
+        <p class="step-do">Pagos, cuentas y problemas del hogar en un solo lugar.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Hay daños en la propiedad</span><span class="a">El problema queda <b>registrado con evidencia</b>; se define responsabilidad y pago, vinculado a la liquidación de garantía.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">8</div>
+        <h3>Cierre y garantía</h3>
+        <p class="step-do">Término del contrato, acta de salida y devolución o aplicación de la garantía.</p>
+        <div class="probs">
+          <div class="prob"><span class="q">Término anticipado (de cualquiera de las partes)</span><span class="a">Las condiciones de aviso e indemnización salen del <b>propio contrato</b>; Lofti guía el acta de salida.</span></div>
+          <div class="prob"><span class="q">Desacuerdo por un descuento de la garantía</span><span class="a">Proceso de <b>disputa con reglas y evidencia</b>, no la devolución a criterio de una parte.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="foot">Los dos recorridos se cruzan en el <b>contrato</b>, los <b>pagos</b> y la <b>garantía</b>: lo que el inquilino firma/paga/disputa es lo mismo que el arrendador recibe/cobra/responde. Prioriza los problemas de las etapas 1–6 antes de abrir a usuarios reales. El detalle legal de cada contrato y los controles de acceso están en los documentos de contrato y de seguridad. Fuente de los casos: auditoría UX de Lofti.</p>
+</div>
+</main>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">

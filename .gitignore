@@ -1,0 +1,9 @@
+node_modules/
+server/node_modules/
+server/prisma/*.db
+server/prisma/*.db-journal
+.env
+*.env
+.DS_Store
+Thumbs.db
+.claude/

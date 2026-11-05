@@ -1,0 +1,223 @@
+<title>Seguridad y acceso</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Doc de seguridad — paleta Lofti, lectura tipo spec técnica */
+  :root{
+    --bg:#F6F1EA; --paper:#FFFFFF; --ink:#1F1B19; --ink-2:#3D3632; --muted:#6B625A;
+    --line:#E6DED4; --line-strong:#D5CABD;
+    --brand:#6B1518; --brand-soft:#F2CBCC; --brand-tint:#F8EDEC;
+    --crit:#A3261E; --crit-bg:#F8E7E5; --alto:#A45A12; --alto-bg:#FBEEDD; --medio:#3F6B2A; --medio-bg:#EAF2E5;
+    --display:'Newsreader','Iowan Old Style',Georgia,serif;
+    --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'Geist Mono',ui-monospace,Menlo,Consolas,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --crit:#E89C96; --crit-bg:#331715; --alto:#D9A876; --alto-bg:#2E2012; --medio:#A6C48C; --medio-bg:#1E2A16;
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#1A1210; --paper:#241A18; --ink:#F0E7E0; --ink-2:#D8CCC3; --muted:#B7A79C;
+    --line:#3A2C27; --line-strong:#4A382F; --brand:#E8A3A5; --brand-soft:#3A1F15; --brand-tint:#2A1618;
+    --crit:#E89C96; --crit-bg:#331715; --alto:#D9A876; --alto-bg:#2E2012; --medio:#A6C48C; --medio-bg:#1E2A16;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--sans);margin:0}
+  .shell{max-width:820px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+  p{margin:0}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--brand)}
+  header{background:var(--brand);color:#FBF0E9}
+  header .shell{padding-block:30px 34px}
+  .eyebrow{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  header h1{font-size:clamp(1.9rem,4.5vw,2.7rem);margin:12px 0 10px;color:#FDF6F0}
+  header p{max-width:62ch;color:#EAD3C5;font-size:1.02rem}
+  main .shell{padding-block:36px 64px}
+  .intro{font-size:1.05rem;color:var(--ink-2);max-width:68ch;margin-bottom:10px}
+  .principle{background:var(--brand-tint);border:1px solid var(--brand-soft);border-radius:12px;padding:18px 20px;margin:24px 0 8px;font-size:15px;color:var(--ink-2)}
+  .principle b{color:var(--ink)}
+  section.block{margin-top:40px;border-top:1px solid var(--line-strong);padding-top:22px}
+  .block>h2{font-size:1.5rem;color:var(--brand);margin-bottom:4px}
+  .block>.sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .ctrl{margin:18px 0}
+  .ctrl h3{font:600 15px var(--sans);color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+  .tag{font:600 10px var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 9px}
+  .t-crit{background:var(--crit-bg);color:var(--crit)}
+  .t-alto{background:var(--alto-bg);color:var(--alto)}
+  .t-medio{background:var(--medio-bg);color:var(--medio)}
+  .ctrl p{font-size:14.5px;color:var(--ink-2);max-width:72ch}
+  .ctrl code{font:400 13px var(--mono);background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--ink)}
+  ul.clean{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+  ul.clean li{position:relative;padding-left:20px;font-size:14px;color:var(--ink-2)}
+  ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;background:var(--brand)}
+  .checklist{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-top:40px}
+  .checklist h2{font-size:1.4rem;color:var(--ink);margin-bottom:14px}
+  ul.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  ul.check li{position:relative;padding-left:30px;font-size:14.5px;color:var(--ink-2)}
+  ul.check li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border:2px solid var(--brand);border-radius:4px}
+  ul.check b{color:var(--ink)}
+  .foot{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+  @media(max-width:520px){header h1{font-size:1.7rem}}
+</style>
+
+<header>
+  <div class="shell">
+    <p class="eyebrow">Lofti · Documento técnico</p>
+    <h1>Seguridad y control de acceso</h1>
+    <p>Reglas que la app y el backend deben cumplir para que nadie acceda a la cuenta de otra persona ni se salte el flujo. La landing es una vitrina; estas protecciones se aplican del lado del servidor, no en el navegador.</p>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+  <p class="intro" style="margin-top:28px">Regla de oro: <b>el cliente (navegador o app) nunca es la autoridad.</b> Toda decisión de acceso y todo paso del flujo se valida en el servidor, con la sesión del usuario, aunque la interfaz ya lo muestre bloqueado.</p>
+  <div class="principle"><b>Por qué.</b> Si la lógica vive solo en el front, cualquiera cambia un <code>id</code> en la URL, abre la consola o llama la API directo. La UI ayuda a guiar; el servidor es el que impide.</div>
+
+  <section class="block">
+    <h2>1 · Autenticación</h2>
+    <p class="sub">Confirmar que quien entra es quien dice ser.</p>
+    <div class="ctrl">
+      <h3>Inicio de sesión seguro <span class="tag t-crit">Crítico</span></h3>
+      <p>Contraseñas guardadas con hashing fuerte (bcrypt / argon2), nunca en texto plano. Verificación de correo y de teléfono al registrarse. Bloqueo tras varios intentos fallidos.</p>
+    </div>
+    <div class="ctrl">
+      <h3>Sesiones y tokens <span class="tag t-crit">Crítico</span></h3>
+      <ul class="clean">
+        <li>Cookies de sesión <code>HttpOnly</code>, <code>Secure</code> y <code>SameSite</code>, o tokens de vida corta con refresh.</li>
+        <li>Expiración por inactividad y cierre de sesión que invalide el token en el servidor.</li>
+        <li>Al cambiar la contraseña, se cierran todas las sesiones abiertas.</li>
+      </ul>
+    </div>
+    <div class="ctrl">
+      <h3>Segundo factor y re-autenticación <span class="tag t-alto">Alto</span></h3>
+      <p>2FA opcional (SMS o app). Re-pedir clave para acciones sensibles: cambiar datos bancarios, firmar un contrato o liberar una garantía.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>2 · Autorización y pertenencia</h2>
+    <p class="sub">El punto central: que cada quien solo vea y toque lo suyo.</p>
+    <div class="ctrl">
+      <h3>Chequeo de dueño en cada acción <span class="tag t-crit">Crítico</span></h3>
+      <p>Antes de mostrar o modificar un recurso (postulación, chat, contrato, pago, propiedad), el servidor comprueba que pertenece al usuario autenticado. Nunca confiar en el <code>id</code> que manda el cliente: pedir <code>/contrato/123</code> solo funciona si 123 es de ese usuario; si no, responde <code>403</code>.</p>
+    </div>
+    <div class="ctrl">
+      <h3>Permisos por rol <span class="tag t-crit">Crítico</span></h3>
+      <ul class="clean">
+        <li><b>Inquilino:</b> sus postulaciones, sus chats, sus contratos y pagos. No ve avisos ajenos de postulantes.</li>
+        <li><b>Arrendador:</b> sus propiedades, los postulantes a ellas, sus contratos. No ve los documentos crudos del inquilino, solo el resumen de verificación.</li>
+        <li><b>Admin / soporte:</b> acceso acotado y registrado; nunca contraseñas ni datos de tarjeta.</li>
+      </ul>
+    </div>
+    <div class="ctrl">
+      <h3>IDs no adivinables <span class="tag t-medio">Medio</span></h3>
+      <p>Usar identificadores aleatorios (UUID) en vez de números correlativos, para no invitar a probar <code>/contrato/124</code>, <code>/125</code>…</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>3 · No saltarse el flujo</h2>
+    <p class="sub">Cada paso exige que el anterior esté cumplido, verificado en el servidor.</p>
+    <div class="ctrl">
+      <h3>Precondiciones por acción <span class="tag t-crit">Crítico</span></h3>
+      <ul class="clean">
+        <li><b>Chatear</b> requiere identidad verificada del inquilino y propiedad verificada del arrendador.</li>
+        <li><b>Postular</b> requiere perfil precalificado (identidad + antecedentes).</li>
+        <li><b>Firmar contrato</b> requiere a las dos partes verificadas y de acuerdo en las condiciones registradas.</li>
+        <li><b>Publicar propiedad</b> requiere verificación de titularidad del arrendador.</li>
+        <li><b>Liberar garantía</b> requiere acta de salida firmada por ambas partes.</li>
+      </ul>
+      <p style="margin-top:8px">La UI oculta el botón si falta un paso, pero el servidor vuelve a comprobarlo: si llega una petición sin la precondición, la rechaza.</p>
+    </div>
+    <div class="ctrl">
+      <h3>Estado como máquina de estados <span class="tag t-alto">Alto</span></h3>
+      <p>El contrato y el arriendo avanzan por estados definidos (borrador → precalificado → firmado → activo → cerrado). Solo se permiten las transiciones válidas; no se puede "activar" un contrato sin firma.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>4 · Verificación de identidad (KYC)</h2>
+    <p class="sub">Confianza entre partes sin exponer documentos.</p>
+    <div class="ctrl">
+      <h3>Proveedor de identidad y mínimo almacenamiento <span class="tag t-crit">Crítico</span></h3>
+      <ul class="clean">
+        <li>Validación de cédula y antecedentes vía proveedor acreditado; guardar el resultado, no el documento completo si no es necesario.</li>
+        <li>Documentos cifrados en reposo, con acceso registrado.</li>
+        <li>El arrendador recibe un <b>resumen</b> ("identidad verificada · ingreso cumple"), nunca el RUT, dirección ni documentos del inquilino, salvo consentimiento explícito.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>5 · Datos personales y privacidad</h2>
+    <p class="sub">Ley 19.628 (datos personales, Chile) como piso.</p>
+    <div class="ctrl">
+      <h3>Minimización y cifrado <span class="tag t-alto">Alto</span></h3>
+      <ul class="clean">
+        <li>HTTPS siempre (en tránsito) y cifrado en reposo para datos sensibles.</li>
+        <li>Pedir solo lo necesario; los datos de contacto se comparten únicamente cuando hay match/acuerdo.</li>
+        <li>Consentimiento claro y derecho a eliminar la cuenta y sus datos.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>6 · Pagos (Venti)</h2>
+    <p class="sub">No tocar datos de tarjeta; delegar al proveedor.</p>
+    <div class="ctrl">
+      <h3>Delegación y validación en servidor <span class="tag t-crit">Crítico</span></h3>
+      <ul class="clean">
+        <li>Los datos de tarjeta van directo a Venti (tokenización); Lofti nunca los almacena.</li>
+        <li>El monto a cobrar se fija y valida en el servidor, no en el navegador.</li>
+        <li>Idempotencia en los cobros (que un reintento no cobre dos veces) y conciliación con comprobante.</li>
+        <li>La garantía, acordada entre las partes, se documenta con registro de cambios.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>7 · Anti-abuso y chat</h2>
+    <p class="sub">Frenar cuentas falsas y contacto no deseado.</p>
+    <div class="ctrl">
+      <h3>Límites y detección <span class="tag t-alto">Alto</span></h3>
+      <ul class="clean">
+        <li>Rate limiting en login, registro y envío de mensajes; CAPTCHA ante comportamiento sospechoso.</li>
+        <li>Solo se puede contactar tras verificación; chat únicamente entre partes con una relación activa (postulación o arriendo).</li>
+        <li>Botón de reporte y bloqueo; moderación de mensajes con enlaces o pagos fuera de la plataforma.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>8 · Auditoría</h2>
+    <div class="ctrl">
+      <h3>Registro de accesos y acciones <span class="tag t-medio">Medio</span></h3>
+      <p>Guardar quién hizo qué y cuándo en acciones sensibles (acceso a documentos, firmas, movimientos de garantía, cambios de datos bancarios). Alertas ante accesos anómalos.</p>
+    </div>
+  </section>
+
+  <div class="checklist">
+    <h2>Checklist para el equipo técnico</h2>
+    <ul class="check">
+      <li><b>Toda</b> ruta de API valida sesión + pertenencia del recurso (no confiar en IDs del cliente).</li>
+      <li>Permisos por rol (inquilino / arrendador / admin) aplicados en el servidor.</li>
+      <li>Precondiciones de flujo revalidadas en el servidor (chatear, postular, firmar, publicar, liberar garantía).</li>
+      <li>Contraseñas con hashing fuerte; cookies <code>HttpOnly/Secure/SameSite</code>; expiración e invalidación de sesión.</li>
+      <li>Re-autenticación para datos bancarios, firma y garantía.</li>
+      <li>UUID en vez de IDs correlativos.</li>
+      <li>Documentos cifrados; el arrendador ve resumen, no documentos crudos.</li>
+      <li>Datos de tarjeta solo en Venti; monto validado en servidor; cobros idempotentes.</li>
+      <li>Rate limiting + CAPTCHA en login/registro/mensajería.</li>
+      <li>Chat solo entre partes con relación activa; reporte y bloqueo.</li>
+      <li>HTTPS, cifrado en reposo, minimización de datos (Ley 19.628).</li>
+      <li>Logs de acciones sensibles y alertas de acceso anómalo.</li>
+    </ul>
+  </div>
+
+  <p class="foot">Alcance: controles del lado de la app y el backend. La landing (<code>index.html</code>) es informativa y su demo usa datos de ejemplo; no maneja cuentas reales. Prioridades: <b>Crítico</b> primero (bloquea acceso indebido), luego Alto y Medio.</p>
+</div>
+</main>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">

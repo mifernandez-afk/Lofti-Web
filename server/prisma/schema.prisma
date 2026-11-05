@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int        @id @default(autoincrement())
+  email         String     @unique
+  passwordHash  String
+  name          String
+  role          String     // "arrendatario" | "dueño"
+  phone         String?
+  verified      Boolean    @default(false)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  properties    Property[]
+}
+
+model Property {
+  id          Int      @id @default(autoincrement())
+  title       String
+  address     String
+  comuna      String
+  type        String   // "depto" | "casa" | "pieza"
+  price       Int
+  rooms       Int
+  bathrooms   Int
+  area        Float?
+  description String?
+  photos      String   @default("[]") // JSON array of photo URLs
+  lat         Float?
+  lng         Float?
+  available   Boolean  @default(true)
+  ownerId     Int
+  owner       User     @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
