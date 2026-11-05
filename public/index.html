@@ -106,12 +106,23 @@ h1{
   height:auto;
 }
 @media(max-width:600px){
-  .logo-wrap img{height:56px}
-  .content{padding:24px 20px 12px}
-  .logo-wrap{margin-bottom:16px}
-  h1{margin-bottom:16px}
-  .desc{margin-bottom:20px;font-size:0.9rem}
-  .skyline img{width:180%}
+  .logo-wrap img{height:50px}
+  .content{padding:16px 20px 8px;flex:1;justify-content:center}
+  .logo-wrap{margin-bottom:10px}
+  .kicker{margin-bottom:8px;font-size:0.68rem}
+  h1{margin-bottom:10px;font-size:1.6rem}
+  .desc{margin-bottom:12px;font-size:0.82rem;line-height:1.4}
+  .badge{padding:7px 18px;font-size:0.8rem}
+  .skyline img{width:400%}
+  .skyline::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:35%;
+    background:linear-gradient(to bottom,var(--surface),transparent);
+    z-index:1;
+    pointer-events:none;
+  }
 }
 </style>
 </head>

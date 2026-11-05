@@ -7,3 +7,5 @@ server/prisma/*.db-journal
 .DS_Store
 Thumbs.db
 .claude/
+.vercel
+.env*
