@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lofti — Pronto en Santiago</title>
+<meta name="description" content="Lofti: arriendos mas simples y seguros en Santiago de Chile. Pronto disponible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brand:#6B1518;
+  --match:#AEA432;
+  --surface:#F6F1EA;
+  --ink:#1F1B19;
+  --home:#CEDAFF;
+}
+body{
+  font-family:'Geist',system-ui,sans-serif;
+  background:var(--surface);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+}
+.container{
+  max-width:540px;
+  width:100%;
+}
+.logo{
+  font-family:'Newsreader',serif;
+  font-size:3.2rem;
+  font-weight:600;
+  color:var(--brand);
+  letter-spacing:-0.02em;
+  margin-bottom:8px;
+}
+.tagline{
+  font-family:'Newsreader',serif;
+  font-size:1.6rem;
+  font-weight:400;
+  color:var(--ink);
+  line-height:1.3;
+  margin-bottom:32px;
+}
+.divider{
+  width:60px;
+  height:3px;
+  background:var(--match);
+  margin:0 auto 32px;
+  border-radius:2px;
+}
+.message{
+  font-size:1rem;
+  line-height:1.6;
+  color:#5a5550;
+  margin-bottom:40px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:white;
+  border:1px solid #e5e0da;
+  border-radius:100px;
+  padding:10px 24px;
+  font-size:0.875rem;
+  color:var(--brand);
+  font-weight:500;
+}
+.badge .dot{
+  width:8px;
+  height:8px;
+  background:var(--match);
+  border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:0.5;transform:scale(0.8)}
+}
+.skyline{
+  margin-top:48px;
+  width:100%;
+  max-width:480px;
+  opacity:0.12;
+}
+.skyline svg{
+  width:100%;
+  height:auto;
+}
+.footer{
+  position:fixed;
+  bottom:24px;
+  font-size:0.75rem;
+  color:#a09890;
+}
+@media(max-width:480px){
+  .logo{font-size:2.4rem}
+  .tagline{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">Lofti</div>
+  <div class="divider"></div>
+  <h1 class="tagline">Estamos construyendo algo nuevo<br>para el arriendo en Santiago.</h1>
+  <p class="message">
+    Una plataforma que conecta arrendatarios y arrendadores con transparencia,
+    contrato digital y pagos gestionados.<br>
+    Pronto disponible.
+  </p>
+  <div class="badge">
+    <span class="dot"></span>
+    En desarrollo
+  </div>
+  <div class="skyline">
+    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 80V55h12V40h8v15h10V30h6v25h14V45h8v10h10V35h6v20h12V28h8v27h10V42h8v13h14V38h6v17h10V50h8v5h12V32h6v23h10V48h8v7h14V40h6v15h10V52h8v3h14V35h6v20h10V45h8v10h12V30h6v25h10V55h8v-5h14v5h8V42h6v13h10V50h8v5h14V38h6v17h10V48h8v7h14V35h6v20h12V80z" fill="var(--brand)"/>
+    </svg>
+  </div>
+</div>
+<div class="footer">Santiago, Chile</div>
+</body>
+</html>
